@@ -17,5 +17,8 @@ urlpatterns = [
     path('landscape/', views.landScape, name="landScape-view"),
     path('upscale/', views.upScale, name="upScale-view"),
 
+    path('login/', views.login, name="login-view"),
+    path('register/', views.register, name="register-view"),
+
 
 ]

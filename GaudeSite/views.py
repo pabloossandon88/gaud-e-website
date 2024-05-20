@@ -203,7 +203,6 @@ def exteriorImage(request):
         return render(request, 'GaudeSite/exterior.html', context)                
     return render(request, 'GaudeSite/exterior.html')
 
-
 def outPaint(request):
     if request.method == 'POST':
         
@@ -233,7 +232,6 @@ def outPaint(request):
         return render(request, 'GaudeSite/outpaint.html', context)        
     
     return render(request, 'GaudeSite/outpaint.html')
-
 
 def interiorRedecoration(request):
     if request.method == 'POST':
@@ -268,9 +266,7 @@ def interiorRedecoration(request):
             return HttpResponse(error_message)
         
     return render(request, 'GaudeSite/interiorredecoration.html')    
-    
-    
-    
+       
 def landScape(request):
     if request.method == 'POST':
         estilo_espacio = request.POST.get('select3')
@@ -306,7 +302,6 @@ def landScape(request):
         
     return render(request, 'GaudeSite/landscape.html')
 
-
 def upScale(request):
     if request.method == 'POST':
         imagen = request.FILES.get('imagen')
@@ -327,3 +322,9 @@ def upScale(request):
             return HttpResponse(error_message)
         
     return render(request, 'GaudeSite/upscale.html')
+
+def login(request):
+    return render(request, 'GaudeSite/login.html')
+
+def register(request):
+    return render(request, 'GaudeSite/register.html')

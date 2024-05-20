@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+ <html lang="en">
+<head>
+    <link rel="canonical" href="https://https://demo.themesberg.com/landwind/" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAUD-E</title>
+
+    <!-- Meta SEO -->
+    <meta name="title" content="GAUD-E">
+    <meta name="description" content="GAUD-E">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="author" content="Themesberg">
+
+    <!-- Social media share -->
+    <meta property="og:title" content="Landwind - Tailwind CSS Landing Page">
+    <meta property="og:site_name" content="Themesberg">
+    <meta property="og:url" content="https://https://demo.themesberg.com/landwind/">
+    <meta property="og:description" content="Get started with a free and open-source landing page for Tailwind CSS built with the Flowbite component library featuring dark mode, hero sections, pricing cards, and more.">
+    <meta property="og:type" content="">
+    <meta property="og:image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/github/landwind/og-image.png">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@themesberg" />
+    <meta name="twitter:creator" content="@themesberg" />
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <!--
+    <link href="./output.css" rel="stylesheet">
+    -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+   
+    <link rel="stylesheet" type="text/css" href="{% static 'css/gaud-e.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles2.css' %}">
+
+    
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        html {
+            font-family: "Inter", sans-serif !important ;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
+        <div class="flex justify-center mb-6">
+            <span class="inline-block bg-gray-200 rounded-full p-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+            </span>
+        </div>
+        <h2 class="text-2xl font-semibold text-center mb-4">GAUD-E</h2>
+        <form>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email *</label>
+                <input type="email" id="email" class="form-input w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring-blue-500" required placeholder="antoni@gaud-e.com">
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password *</label>
+                <input type="password" id="password" class="form-input w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring-blue-500" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="w-full bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Ingresar</button>
+            
+        </form>
+        <div class="text-center m-5">
+            <a  href="{% url 'home-view' %}"  class="w-full text-teal-700 px-4 py-2 rounded-lg hover:bg-teal-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Volver a Home</a>
+        </div>
+    </div>
+    
+</div>
+
+    
+
+    <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
+</body>
+</html>
