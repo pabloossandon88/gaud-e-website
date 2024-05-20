@@ -3,17 +3,17 @@ from django.http import HttpResponse
 import base64
 
 # Import API functions
-from .image_generation_api import llamar_api
-from .remove_back import llamar_api_remove_back
-from .sketch_image import llamar_api_boceto
-from .master_plan import llamar_api_masterplan
-from .interior import llamar_api_interior
-from .exterior import llamar_api_exterior
-from .searchReplace import llamar_api_replace
-from .replaceStructure import llamar_api_replace_structure
-from .outpaint import llamar_api_outpaint
-from .interiorRedecoration import llamar_api_interiorRedecoration
-from .upscale import llamar_api_upscale
+from .APIfunctions.image_generation_api import llamar_api
+from .APIfunctions.remove_back          import llamar_api_remove_back
+from .APIfunctions.sketch_image         import llamar_api_boceto
+from .APIfunctions.master_plan          import llamar_api_masterplan
+from .APIfunctions.interior             import llamar_api_interior
+from .APIfunctions.exterior             import llamar_api_exterior
+from .APIfunctions.searchReplace        import llamar_api_replace
+from .APIfunctions.replaceStructure     import llamar_api_replace_structure
+from .APIfunctions.outpaint             import llamar_api_outpaint
+from .APIfunctions.interiorRedecoration import llamar_api_interiorRedecoration
+from .APIfunctions.upscale              import llamar_api_upscale
 
 # Function to convert bytes to base64
 def bytes_to_base64(image_bytes):
@@ -88,7 +88,6 @@ def removeBackground(request):
         
     return render(request, 'GaudeSite/removeback.html')
 
-
 def masterPlan(request):
     if request.method == 'POST':
         tipo_construccion = request.POST.get('select1')
@@ -113,7 +112,6 @@ def masterPlan(request):
             error_message = "No se ha subido ninguna imagen."
             return HttpResponse(error_message)       
     return render(request, 'GaudeSite/masterplan.html')
-
 
 def searchReplace(request):
     if request.method == 'POST':
@@ -161,8 +159,6 @@ def replaceStructure(request):
             return HttpResponse(error_message)        
     return render(request, 'GaudeSite/replacestructure.html')
 
-
-
 def interiorImage(request):
     if request.method == 'POST':
         
@@ -184,7 +180,6 @@ def interiorImage(request):
         
         return render(request, 'GaudeSite/interior.html', context)                
     return render(request, 'GaudeSite/interior.html')
-
 
 def exteriorImage(request):
     if request.method == 'POST':

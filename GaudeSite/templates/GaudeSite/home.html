@@ -69,21 +69,25 @@
       <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white text-teal-700">Herramientas Gaud-E</h2>
       <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400 text-teal-700">Genera imágenes de paisajismo, diseños arquitectónicos, construcciones futuristas con nuestra herramienta IA</p>
 
-      <div class="grid grid-cols-2 gap-4 mt-24">
+      <div class="grid grid-cols-2 gap-12 mt-24">
 
-          <div class="flex-1 w-25 m-0">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <img class="w-90" src="https://unsplash.com/photos/a-house-with-a-solar-panel-on-the-roof-next-to-a-wind-turbine-0Ih8YLg2bKM" alt="">
-              <h2 class="text-2xl font-bold text-teal-700 mt-5">Evaluación Energética</h2>
-              <p class="text-center my-5 min-h-20 text-teal-700">A partir de fotografias o vídeo obten un análisis energético y medioambiental de tu proyecto</p>
-              <a href="#" class="bg-teal-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Próximamente</a>
+          <div class="flex-1 w-25 m-0 shadow-lg">
+              <img class="w-90 rounded-t-lg grayscale opacity-50" src="./static/images/evaluacion-energetica.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 px-5 bg-white">
+                <h2 class="text-2xl font-bold text-gray-300 mt-5">Evaluación Energética</h2>
+                <p class="text-center my-5 min-h-20 text-gray-300">A partir de fotografias o vídeo obten un análisis energético y medioambiental de tu proyecto</p>
+                <a href="#" class="bg-gray-300 text-white font-bold py-2 px-4 rounded">Próximamente</a>
+              </div>
           </div>
-          <div class="flex-1 w-25 m-0">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-2xl font-bold text-teal-700 mt-5">Ambiente 3D</h2>
-              <p class="text-center my-5 min-h-20 text-teal-700">Genera, explora y personaliza tus espacios interiores en 360°</p>
-              <a href="#" class="bg-teal-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Próximamente</a>
+          <div class="flex-1 w-25 m-0 shadow-lg">
+              <img class="w-90 rounded-t-lg grayscale opacity-50" src="./static/images/ambiente-3d.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
+                <h2 class="text-2xl font-bold text-gray-300 mt-5">Ambiente 3D</h2>
+                <p class="text-center my-5 min-h-20 text-gray-300">Genera, explora y personaliza tus espacios interiores en 360°</p>
+                <a href="#" class="bg-gray-300 text-white font-bold py-2 px-4 rounded">Próximamente</a>
+              </div>
           </div>
+          <!--
           <div class="flex-1 w-25 m-0">
               <img class="w-90" src="./static/images/img-default.png" alt="">
               <h2 class="text-2xl font-bold text-teal-700 mt-5">Texto a 3D</h2>
@@ -96,66 +100,89 @@
               <p class="text-center my-5 min-h-20 text-teal-700">De fotografia o vídeo a 3D Splating Gaussiano.</p>
               <a href="#" class="bg-teal-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Próximamente</a>
           </div>
+          -->
 
       </div>
       
       <br><br>
 
-      <div class="grid grid-cols-4 gap-2">
-          <div class="flex-1 w-25 my-5">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-lg font-bold text-teal-700 m-5">Exterior AI</h2>
-              <a href="{% url 'exteriorImage-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+      <div class="grid grid-cols-4 gap-6">
+          <div class="flex-1 w-25 my-5 shadow-md">
+              <img class="w-90 rounded-t-lg bg-white" src="./static/images/exterior.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
+                <h2 class="text-lg font-bold text-teal-700 m-5">Exterior AI</h2>
+                <a href="{% url 'exteriorImage-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+              </div>
           </div>
-          <div class="flex-1 w-25 my-5">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-lg font-bold text-teal-700 m-5">Interior AI</h2>
-              <a href="{% url 'interiorImage-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+          <div class="flex-1 w-25 my-5 shadow-md">
+              <img class="w-90 rounded-t-lg" src="./static/images/interior.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
+                <h2 class="text-lg font-bold text-teal-700 m-5">Interior AI</h2>
+                <a href="{% url 'interiorImage-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+              </div>
           </div>
-          <div class="flex-1 w-25 my-5">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-lg font-bold text-teal-700 m-5">Masterplan AI</h2>
-              <a href="{% url 'masterPlan-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+          <div class="flex-1 w-25 my-5 shadow-md">
+              <img class="w-90 rounded-t-lg" src="./static/images/masterplan.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
+                <h2 class="text-lg font-bold text-teal-700 m-5">Masterplan AI</h2>
+                <a href="{% url 'masterPlan-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+              </div>
           </div>
-          <div class="flex-1 w-25 my-5">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-lg font-bold text-teal-700 m-5">Landscape AI</h2>
-              <a href="{% url 'landScape-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+          <div class="flex-1 w-25 my-5 shadow-md">
+              <img class="w-90 rounded-t-lg" src="./static/images/landscape.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
+                <h2 class="text-lg font-bold text-teal-700 m-5">Landscape AI</h2>
+                <a href="{% url 'landScape-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+              </div>
           </div>
-          <div class="flex-1 w-25 my-5">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-lg font-bold text-teal-700 m-5">Ampliaciones</h2>
-              <a href="{% url 'outPaint-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+          <div class="flex-1 w-25 my-5 shadow-md">
+              <img class="w-90 rounded-t-lg" src="./static/images/ampliaciones.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
+                <h2 class="text-lg font-bold text-teal-700 m-5">Ampliaciones</h2>
+                <a href="{% url 'outPaint-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+              </div>
           </div>
-          <div class="flex-1 w-25 my-5">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-lg font-bold text-teal-700 m-5">Redecoración de interiores</h2>
-              <a href="{% url 'interiorRedecoration-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+          <div class="flex-1 w-25 my-5 shadow-md">
+              <img class="w-90 rounded-t-lg" src="./static/images/redecoracion.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
+                <h2 class="text-lg font-bold text-teal-700 m-5">Redecoración de interiores</h2>
+                <a href="{% url 'interiorRedecoration-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+              </div>
           </div>
-          <div class="flex-1 w-25 my-5">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-lg font-bold text-teal-700 m-5">Renderización de dibujo o imagen</h2>
-              <a href="{% url 'sketchImg-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+          <div class="flex-1 w-25 my-5 shadow-md">
+              <img class="w-90 rounded-t-lg" src="./static/images/renderizacion.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
+                <h2 class="text-lg font-bold text-teal-700 m-5">Render de dibujo o imagen</h2>
+                <a href="{% url 'sketchImg-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+             </div>
           </div>
-          <div class="flex-1 w-25 my-5">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-lg font-bold text-teal-700 m-5">Structure</h2>
-              <a href="{% url 'replaceStructure-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+          <div class="flex-1 w-25 my-5 shadow-md">
+              <img class="w-90 rounded-t-lg" src="./static/images/structure.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
+                <h2 class="text-lg font-bold text-teal-700 m-5">Structure</h2>
+                <a href="{% url 'replaceStructure-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+              </div>
           </div>
-          <div class="flex-1 w-25 my-5">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-lg font-bold text-teal-700 m-5">Remove Background</h2>
-              <a href="{% url 'removeBackground-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+          <div class="flex-1 w-25 my-5 shadow-md">
+              <img class="w-90 rounded-t-lg" src="./static/images/background.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
+                <h2 class="text-lg font-bold text-teal-700 m-5">Remove Background</h2>
+                <a href="{% url 'removeBackground-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+              </div>
           </div>
-          <div class="flex-1 w-25 my-5">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-lg font-bold text-teal-700 m-5">Search and Replace</h2>
-              <a href="{% url 'searchReplace-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+          <div class="flex-1 w-25 my-5 shadow-md">
+              <img class="w-90 rounded-t-lg" src="./static/images/search.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
+                <h2 class="text-lg font-bold text-teal-700 m-5">Search and Replace</h2>
+                <a href="{% url 'searchReplace-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+              </div>
           </div>
-          <div class="flex-1 w-25 my-5">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-lg font-bold text-teal-700 m-5">Upscale</h2>
-              <a href="{% url 'upScale-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+          <div class="flex-1 w-25 my-5 shadow-md">
+              <img class="w-90 rounded-t-lg" src="./static/images/upscale.jpeg" alt="">
+              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
+                <h2 class="text-lg font-bold text-teal-700 m-5">Upscale</h2>
+                <a href="{% url 'upScale-view' %}" class="bg-teal-700 hover:bg-blue-700 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
+              </div>
           </div>
       </div>
       
