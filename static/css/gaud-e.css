@@ -5,6 +5,24 @@
     background: linear-gradient(90deg, rgba(16,111,100,1) 0%, rgba(27,149,149,1) 49%, rgba(9,28,67,1) 98%);
 }
 
+.bg-header{
+    background: linear-gradient(90deg, rgba(16,111,100,1) 0%, rgba(27,149,149,1) 49%, rgba(9,28,67,1) 98%);
+}
+
+.bg-login{
+    background: linear-gradient(
+                        90deg, 
+                        rgba(9,28,67,1) 0%,
+                        rgba(16,111,100,1) 20%, 
+                        rgba(27,149,149,1) 35%, 
+                        rgba(27,149,149,1) 65%,
+                        rgba(16,111,100,1) 80%, 
+                        rgba(9,28,67,1) 99%
+                );
+    background: linear-gradient(225deg, rgba(9,28,67,1) 0%, rgba(16,111,100,1) 18%, rgba(27,149,149,1) 39%, rgba(9,28,67,1) 98%);
+
+}
+
 
 /* since nested groupes are not supported we have to use 
     regular css for the nested dropdowns 
@@ -53,3 +71,5 @@ h1{
 .btn-pay{
     background: rgba(0, 0, 0, 0.5) !important;
 }
+
+

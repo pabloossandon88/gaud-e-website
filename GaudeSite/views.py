@@ -328,3 +328,6 @@ def login(request):
 
 def register(request):
     return render(request, 'GaudeSite/register.html')
+
+def imgbox():
+    return render(request, 'GaudeSite/img-box.html')
