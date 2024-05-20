@@ -3,7 +3,7 @@ import os
 import time
 import json
 import requests
-STABILITY_KEY = "sk-tQepiNbR3T3X8VQGLuk7E9yB6joOaoi3xOdNXdgky0yto6E6"
+from django.conf import settings
 
 
 # PROBLEMA
@@ -61,7 +61,7 @@ def send_async_generation_request(
 ):
     headers = {
         "Accept": "application/json",
-        "Authorization": f"Bearer {STABILITY_KEY}"
+        "Authorization": f"Bearer {settings.STABILITY_KEY}"
     }
 
     # Encode parameters

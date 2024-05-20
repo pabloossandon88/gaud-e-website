@@ -1,6 +1,5 @@
 import requests
-STABILITY_KEY = "sk-f7AnN3egSciF7xferYbliEqEI378DnULpqMFA52fQPMPaYQI"
-
+from django.conf import settings
 
 def send_generation_request(
     host,
@@ -8,7 +7,7 @@ def send_generation_request(
 ):
     headers = {
         "Accept": "image/*",
-        "Authorization": f"Bearer {STABILITY_KEY}"
+        "Authorization": f"Bearer {settings.STABILITY_KEY}"
     }
 
     # Encode parameters
