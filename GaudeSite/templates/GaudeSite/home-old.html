@@ -1,0 +1,186 @@
+{% extends 'GaudeSite/base2.html' %}
+{% load static %}
+
+{% block content%}
+
+
+<main>
+  <section id="hero">
+    <h1><span class="logo">Architect Gaud-E AI</span></h1>
+    <h2>Generación de Diseños Arquitectónicos 2D y 3D con Inteligencia Artificial</h2>
+    <p>Aplicando inteligencia artificial al diseño arquitectónico para obtener resultados óptimos en eficiencia energética y medioambiental.</p>
+    <div id="action-buttons">
+        <button id="download-button"><i class="fa-solid fa-bolt"></i> Probar Ahora</button>
+        <button id="explore-button"><i class="fa-solid fa-rocket"></i> Explorar Más</button>
+        <button id="learn-button"><i class="fas fa-book"></i> Estudio en Profundidad</button>
+    </div>
+    
+    <div id="scroll-indicator">
+      <i class="fa-solid fa-angle-down"></i>
+    </div>
+  </section>
+</main>
+
+<section id="cardsSection">
+  <h1>Herramientas Gaud-E</h1>
+  <p>Genera imágenes de paisajismo, diseños arquitectónicos, construcciones futuristas con nuestra herramienta IA</p>
+  <div class="card-container">
+    
+      <div class="card">
+      <i class="icono">🏠</i>
+      <h3>Exterior AI</h3>
+      <p>Generar diversas visualizaciones arquitectónicas para exteriores</p>
+      <a href="{% url 'exteriorImage-view' %}" class="primer-boton btn-card">¡Prueba Ahora!</a>
+    </div>
+
+    <div class="card">
+      <i class="icono">🛋️</i>
+      <h3>Interior AI</h3>
+      <p>Reimagina cualquier habitación con más de 20 estilos de diseño para crear interiores en segundos. Controla acabados, colores y luces.</p>
+      <a href="{% url 'interiorImage-view' %}" class="primer-boton btn-card">¡Prueba Ahora!</a>
+    </div>
+
+    <div class="card">
+      <i class="icono desactivado">⚡</i>
+      <h3 class="desactivado">Evaluación Energética</h3>
+      <p class="desactivado">A partir de fotografias o vídeo obten un análisis energético y
+        medioambiental de tu proyecto</p>
+      <button class="desactivado">¡Prueba Ahora!</button>
+      </div>
+
+    <div class="card">
+      <i class="icono desactivado">🌱</i>
+      <h3 class="desactivado">Análisis Medioambiental</h3>
+      <p class="desactivado">A partir de fotografías o vídeo obten un análisis energético,
+        climático y medioambiental de tu proyecto</p>
+      <button class="desactivado">¡Prueba Ahora!</button>
+    </div>
+
+    <div class="card">
+      <i class="icono">🏢🏗️</i>
+      <h3>Masterplan AI</h3>
+      <p>Genera un loteo, un condominio en 3D o un proyecto de paisajismo, a partir solamente de un esquema o fotografía</p>
+      <a href="{% url 'masterPlan-view' %}" class="primer-boton btn-card">¡Prueba Ahora!</a>
+    </div>
+
+    <div class="card">
+      <i class="icono">🌳🎨</i>
+      <h3>Landscape AI</h3>
+      <p>Genera un proyecto de paisajismo, a partir solamente de un esquema o fotografía de tu patio</p>
+      <a href="{% url 'landScape-view' %}" class="primer-boton btn-card">¡Prueba Ahora!</a>
+    </div>
+
+    <div class="card">
+      <i class="icono">🏡🔨</i>
+      <h3>Ampliaciones</h3>
+      <p>Genera una propuesta de ampliación para tu casa a partir de un esquema o fotografía.</p>
+      <a href="{% url 'outPaint-view' %}" class="primer-boton btn-card">¡Prueba Ahora!</a>
+    </div>
+
+    <div class="card">
+      <i class="icono">💫</i>
+      <h3>Redecoración de interiores</h3>
+      <p>Carga imágenes de interiores, como salas de estar, dormitorios, cocinas, etc., y luego realiza cambios o mejoras virtuales en ellas.</p>
+      <a href="{% url 'interiorRedecoration-view' %}" class="primer-boton btn-card">¡Prueba Ahora!</a>
+    </div>
+
+    <div class="card">
+      <i class="icono">🖌️</i>
+      <h3>Renderización de dibujo o imagen</h3>
+      <p>Transformamos tus bocetos en detallados diseños en 2D, permite visualizar y perfeccionar tu proyecto antes de la construcción.</p>
+      <a href="{% url 'sketchImg-view' %}" class="primer-boton btn-card">¡Prueba Ahora!</a>
+    </div>
+
+    <div class="card">
+      <i class="icono">🏛️🎨</i>
+      <h3>Structure</h3>
+      <p>Genera imágenes manteniendo la estructura de una imagen, valiosa para escenarios de creación de contenido, como la recreación de escenas.</p>
+      <a href="{% url 'replaceStructure-view' %}" class="primer-boton btn-card">¡Prueba Ahora!</a>
+    </div>
+
+
+    <div class="card">
+      <i class="icono">✂️</i>
+      <h3>Remove Background</h3>
+      <p>Eliminamos el fondo de tu diseño</p>
+      <a href="{% url 'removeBackground-view' %}" class="primer-boton btn-card">¡Prueba Ahora!</a>
+    </div>
+
+    <div class="card">
+      <i class="icono">🔎🔄</i>
+      <h3>Search and Replace</h3>
+      <p>Identifica un objeto en tu diseño y reemplázalo</p>
+      <a href="{% url 'searchReplace-view' %}" class="primer-boton btn-card">¡Prueba Ahora!</a>
+    </div>
+
+    <div class="card">
+      <i class="icono">📸⬆️</i>
+      <h3>Upscale</h3>
+      <p>Cree una versión de mayor resolución de una imagen de entrada.</p>
+      <a href="{% url 'upScale-view' %}" class="primer-boton btn-card">¡Prueba Ahora!</a>
+    </div>
+  
+
+
+    <!-- <section id="new-section"> -->
+    <!-- <section id="new-section"> -->
+    <!-- <section id="new-section"> -->
+    <!-- <section id="new-section"> -->
+    <!-- <section id="new-section"> -->
+
+    <div class="card">
+      <i class="icono desactivado">🌐🏠</i>
+      <h3 class="desactivado">Ambiente 360°</h3>
+      <p class="desactivado">Genera, explora y personaliza tus espacios interiores en 360°</p>
+      <button class="desactivado">¡Prueba Ahora!</button>
+    </div>
+
+    <div class="card">
+      <i class="icono desactivado">✨</i>
+      <h3 class="desactivado">Texto a 3D</h3>
+      <p class="desactivado">Genera modelos 3D arquitectónicos completos a partir de texto.</p>
+      <button class="desactivado">Probar</button>
+    </div>
+
+    
+
+    <div class="card">
+      <i class="icono desactivado">🖌️</i>
+      <h3 class="desactivado">Imagen a 3D</h3>
+      <p class="desactivado">De fotografia o vídeo a 3D Splating Gaussiano.</p>
+      <button class="desactivado">Probar</button>
+    </div>
+
+    <div class="card">
+      <i class="icono desactivado">🌠</i>
+      <h3 class="desactivado">Texto a Objeto 3D</h3>
+      <p class="desactivado">Genera objetos en 3D a partir de texto.</p>
+      <button class="desactivado">Probar</button>
+    </div>
+
+    <!-- 
+
+    <div class="card">
+      <i class="icono">🏠</i>
+      <h3>Text to Image</h3>
+      <p>Genera diseños a partir de texto</p>
+      <a href="{% url 'imgGenerator-view' %}" class="primer-boton btn-card">Probar</a>
+    </div>
+
+    <div class="card">
+      <i class="icono desactivado">🏢</i>
+      <h3 class="desactivado">Generador de Plantas Arquitectónicas</h3>
+      <p class="desactivado">Generador de plantas arquitectónicas, crea diferentes opciones
+        de casas o loteos en segundos.</p>
+      <button class="desactivado" disabled>Probar</button>
+    </div>
+    
+    -->
+    
+
+  </div>
+  
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'GaudeSite/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<header>
+    <nav class="navbar">
+        <span class="logo"><i class="fa-solid fa-bolt"></i> Gaud-E</span>
+        <div class="social-links">
+            <a href="#" target="_blank"><i class="fa-brands fa-linkedin"></i> Linkedin</a>
+            <a href="#" target="_blank"><i class="fa-brands fa-github"></i> Github</a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+        </div>
+    </nav>
+</header>
+
+<main id="projevalMain">
+    <section id="evaluation-section">
+        <h1>Evaluación de Proyectos Energéticos y Medioambientales</h1>
+        <p>Realiza evaluaciones energéticas y medioambientales para proyectos utilizando nuestra herramienta especializada.</p>
+        <div class="content-wrapper">
+            <form action="{% url 'projEval-view' %}" method="POST">
+                {% csrf_token %}
+                <div id="evaluation-form">
+                    <div class="form-group">
+                        <label for="project-type">Tipo de Proyecto:</label>
+                        <select name="project-type" id="project-type">
+                            <option value="energetico">Proyecto Energético</option>
+                            <option value="medioambiental">Proyecto Medioambiental</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-details">Detalles del Proyecto:</label>
+                        <textarea name="project-details" id="project-details" rows="6" placeholder="Describe los detalles del proyecto..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-country">País:</label>
+                        <input type="text" name="project-country" id="project-country" placeholder="Ingresa el país del proyecto">
+                    </div>
+                    <div class="form-group">
+                        <label for="project-city">Ciudad/Localidad:</label>
+                        <input type="text" name="project-city" id="project-city" placeholder="Ingresa la ciudad o localidad del proyecto">
+                    </div>
+                    <!-- Añade más campos según sea necesario -->
+                    <div class="form-group">
+                        <button type="submit">Realizar Evaluación</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <p>© 2024 Gaud-E. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+{% endblock %}
+

@@ -1,0 +1,55 @@
+.bg-violet-800{
+    background-color: #2F0463 !important;
+    background-color: rgb(2 44 34) !important;
+    background: rgb(16,111,100);
+    background: linear-gradient(90deg, rgba(16,111,100,1) 0%, rgba(27,149,149,1) 49%, rgba(9,28,67,1) 98%);
+}
+
+
+/* since nested groupes are not supported we have to use 
+    regular css for the nested dropdowns 
+*/
+li>ul                 { transform: translatex(100%) scale(0) }
+li:hover>ul           { transform: translatex(101%) scale(1) }
+li > button svg       { transform: rotate(-90deg) }
+li:hover > button svg { transform: rotate(-270deg) }
+
+
+.group:hover .group-hover\:scale-100 { transform: scale(1) }
+.group:hover .group-hover\:-rotate-180 { transform: rotate(180deg) }
+.scale-0 { transform: scale(0) }
+.min-w-32 { min-width: 8rem }
+
+video{
+    position: absolute;
+    z-index: -1;
+}
+
+iframe{
+    position: absolute;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+
+.layer{
+    background: black;
+    opacity: 0.5;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    z-index: -1;
+}
+
+h1{
+    font-weight: 700;
+    letter-spacing: 0.3rem;
+    font-size: 3.40rem;
+    line-height: 1;
+}
+
+.btn-pay{
+    background: rgba(0, 0, 0, 0.5) !important;
+}

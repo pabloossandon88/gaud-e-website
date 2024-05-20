@@ -1,0 +1,125 @@
+{% extends 'GaudeSite/base2.html' %}
+{% load static %}
+
+{% block content%}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+<style>
+  body{
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  main#imgenMain {
+    padding: 50px 50px 150px 50px;
+    margin-bottom: 100px;
+  }
+</style>
+
+<main id="imgenMain">
+    <section id="new-section">
+        <h1>Re-decoración de interiores</h1>
+        <p>Rediseña espacios, reinventa.</p>
+        <div class="content-wrapper">
+            <div id="image-preview-box">
+              <div class="swiper">
+                <!-- Additional required wrapper -->
+                
+                <img class="preview-image" src="data:image/png;base64,{{ imagenes_base64 }}" alt="Generated Image"/>
+   
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+              
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+              
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>              
+              </div>
+            </div>
+      
+          <form action="{% url 'interiorRedecoration-view' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div id="options-panel">
+              
+              <div class="option">
+                <label for="imagen">Seleccionar imagen:</label>
+                <input type="file" name="imagen" id="imagen" accept="image/*">
+              </div>
+
+              <div class="option">
+                <label for="select4">Añade detalles:</label>
+                <textarea name="textoEjemplo" placeholder="Rojo, con sillones, una mesa de centro, etc..." rows="6" cols="50">{{ detalles }}</textarea>
+              </div>
+              
+              <div class="option">
+                <label for="select2">Estilo de habitación:</label>
+                <select name="select2" id="select2">
+                  <option value="warm_and_cosy" {% if estilo_construccion == "warm_and_cosy" %}selected{% endif %}>Cálida y acogedora</option>
+                  <option value="luxurious" {% if estilo_construccion == "luxurious" %}selected{% endif %}>Lujoso</option>
+                  <option value="minimalist" {% if estilo_construccion == "minimalist" %}selected{% endif %}>Minimalista</option>
+                  <option value="boho_chic" {% if estilo_construccion == "boho_chic" %}selected{% endif %}>Boho-chic</option>
+                  <option value="neoclassic" {% if estilo_construccion == "neoclassic" %}selected{% endif %}>Neoclásico</option>
+                  <option value="art_deco" {% if estilo_construccion == "art_deco" %}selected{% endif %}>Art Decó</option>
+                  <option value="art_nouveau" {% if estilo_construccion == "art_nouveau" %}selected{% endif %}>Art Nouveau</option>
+                  <option value="ikea" {% if estilo_construccion == "ikea" %}selected{% endif %}>IKEA</option>
+                  <option value="biophilic" {% if estilo_construccion == "biophilic" %}selected{% endif %}>Biophilic</option>
+                  <option value="industrial" {% if estilo_construccion == "industrial" %}selected{% endif %}>Industrial</option>
+                  <option value="japandi" {% if estilo_construccion == "japandi" %}selected{% endif %}>Japandi</option>
+                  <option value="modern" {% if estilo_construccion == "modern" %}selected{% endif %}>Moderno</option>
+                  <option value="contemporary" {% if estilo_construccion == "contemporary" %}selected{% endif %}>Contemporáneo</option>
+                  <option value="eclectic" {% if estilo_construccion == "eclectic" %}selected{% endif %}>Ecléctico</option>
+                  <option value="wabi_sabi" {% if estilo_construccion == "wabi_sabi" %}selected{% endif %}>Wabi-sabi</option>
+                  <option value="zen" {% if estilo_construccion == "zen" %}selected{% endif %}>Zen</option>
+                  <option value="coastral" {% if estilo_construccion == "coastral" %}selected{% endif %}>Costero</option>
+                  <option value="mediterranean" {% if estilo_construccion == "mediterranean" %}selected{% endif %}>Mediterráneo</option>
+                  <option value="shabby_chic" {% if estilo_construccion == "shabby_chic" %}selected{% endif %}>Shabby Chic</option>
+                  <option value="bauhaus" {% if estilo_construccion == "bauhaus" %}selected{% endif %}>Bauhaus</option>
+                  <option value="futuristic" {% if estilo_construccion == "futuristic" %}selected{% endif %}>Futurista</option>
+                  <option value="pharaonic" {% if estilo_construccion == "pharaonic" %}selected{% endif %}>Faraónico</option>
+                  <option value="tropical" {% if estilo_construccion == "tropical" %}selected{% endif %}>Tropical</option>
+                  <option value="tribal" {% if estilo_construccion == "tribal" %}selected{% endif %}>Tribal</option>
+                  <option value="rustic" {% if estilo_construccion == "rustic" %}selected{% endif %}>Rústico</option>
+                  <option value="midcentury_modern" {% if estilo_construccion == "midcentury_modern" %}selected{% endif %}>Moderno de mediados de siglo</option>
+                  <option value="maximalist" {% if estilo_construccion == "maximalist" %}selected{% endif %}>Maximalista</option>
+                  <option value="vintage" {% if estilo_construccion == "vintage" %}selected{% endif %}>Vintage</option>
+                  <option value="medieval" {% if estilo_construccion == "medieval" %}selected{% endif %}>Medieval</option>
+                  <option value="barroque" {% if estilo_construccion == "barroque" %}selected{% endif %}>Barroco</option>
+                  <option value="halloween" {% if estilo_construccion == "halloween" %}selected{% endif %}>Halloween</option>
+                  <option value="cyberpunk" {% if estilo_construccion == "cyberpunk" %}selected{% endif %}>Cyberpunk</option>
+                  <option value="chrismas" {% if estilo_construccion == "chrismas" %}selected{% endif %}>Navideño</option>
+                </select>
+              </div>
+              
+              <div class="option">
+                <label for="select3">Negative prompt:</label>
+                <textarea name="textoEjemplo2" placeholder="" rows="3" cols="50">{{ detalles }}</textarea>
+              </div>
+
+              <div class="option">
+                <label for="seed">Seed:</label>
+                <input type="range" id="seed" name="seed" min="0" max="4294967294" value="0">
+                <span id="seedValue">0</span>
+                <input type="hidden" id="seedHidden" name="seed_hidden" value="0">
+              </div>            
+      
+              <div class="option">
+                <button type="submit">Generar</button>
+              </div>
+            </div>
+      
+          </form>
+        </div>
+      </section>  
+</main>
+
+<script>
+  document.getElementById('seed').addEventListener('input', function() {
+      document.getElementById('seedValue').innerText = this.value;
+      document.getElementById('seedHidden').value = this.value;
+  });
+</script>
+
+{% endblock %}

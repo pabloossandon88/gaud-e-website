@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and logs
+*.log
+logs/
+*.sqlite3
+
+# Virtual environment
+venv/
+venv*/
+*.env
+.Python
+pip-log.txt
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Dependency directories
+*/node_modules/
+*/bower_components/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+MANIFEST
+
+# Django related
+*.pyc
+db.sqlite3
+media/
+
+# Ignore secret keys
+*.key
+*.pem
+
+# Ignore development settings
+.env
+local_settings.py
+
+# Ignore coverage reports
+htmlcov/
+
+# Ignore macOS system files
+.DS_Store

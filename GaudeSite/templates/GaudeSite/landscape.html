@@ -1,0 +1,101 @@
+{% extends 'GaudeSite/base2.html' %}
+{% load static %}
+
+{% block content%}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+<style>
+  body{
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  main#imgenMain {
+    padding: 50px 50px 150px 50px;
+    margin-bottom: 100px;
+  }
+</style>
+
+<main id="imgenMain">
+    <section id="new-section">
+        <h1>Genera un proyecto de paisajismo, a partir solamente de un esquema o fotografía</h1>
+        <p>Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.</p>
+        <div class="content-wrapper">
+            <div id="image-preview-box">
+              <div class="swiper">                
+                <img class="preview-image" src="data:image/png;base64,{{ imagenes_base64 }}" alt="Generated Image"/>
+                <div class="swiper-pagination"></div>          
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+              
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>              
+              </div>
+            </div>
+      
+          <form action="{% url 'landScape-view' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div id="options-panel">
+              
+              <div class="option">
+                <label for="imagen">Seleccionar imagen:</label>
+                <input type="file" name="imagen" id="imagen" accept="image/*">
+              </div>
+
+              <div class="option">
+                <label for="select4">Añade detalles:</label>
+                <textarea name="textoEjemplo" placeholder="Color rojo, en la playa, etc..." rows="6" cols="50">{{ detalles }}</textarea>
+              </div>
+              
+              <div class="option">
+                <label for="select1">Tipo de espacio:</label>
+                <select name="select1" id="select1">
+                  <option value="backyard" {% if tipo_construccion == "backyard" %}selected{% endif %}>Patio interior</option>
+                  <option value="building_entrance" {% if tipo_construccion == "building_entrance" %}selected{% endif %}>Entrada del edificio</option>
+                  <option value="courtyard" {% if tipo_construccion == "courtyard" %}selected{% endif %}>Patio</option>
+                  <option value="swimming_pool" {% if tipo_construccion == "swimming_pool" %}selected{% endif %}>Piscina</option>
+                  <option value="outdoor_garden" {% if tipo_construccion == "outdoor_garden" %}selected{% endif %}>Jardín exterior</option>
+                  <option value="club_landscape" {% if tipo_construccion == "club_landscape" %}selected{% endif %}>Paisaje de club</option>
+                  <option value="park" {% if tipo_construccion == "park" %}selected{% endif %}>Parque</option>
+                  <option value="pedestrian_promenade" {% if tipo_construccion == "pedestrian_promenade" %}selected{% endif %}>Paseo peatonal</option>
+                </select>
+              </div>
+              
+              <div class="option">
+                <label for="select3">Estilo de espacio:</label>
+                <select name="select3" id="select3">
+                  <option value="modern" {% if estilo_espacio == "modern" %}selected{% endif %}>Moderno</option>
+                  <option value="tropical" {% if estilo_espacio == "tropical" %}selected{% endif %}>Tropical</option>
+                  <option value="contemporary" {% if estilo_espacio == "contemporary" %}selected{% endif %}>Contemporáneo</option>
+                  <option value="tuscan" {% if estilo_espacio == "tuscan" %}selected{% endif %}>Toscano</option>
+                  <option value="japanese_garden" {% if estilo_espacio == "japanese_garden" %}selected{% endif %}>Jardín japonés</option>
+                  <option value="english_garden" {% if estilo_espacio == "english_garden" %}selected{% endif %}>Jardín inglés</option>
+                  <option value="french_garden" {% if estilo_espacio == "french_garden" %}selected{% endif %}>Jardín francés</option>
+                  <option value="rustic" {% if estilo_espacio == "rustic" %}selected{% endif %}>Rústico</option>
+                  <option value="prairie" {% if estilo_espacio == "prairie" %}selected{% endif %}>Pradera</option>
+                  <option value="woodland" {% if estilo_espacio == "woodland" %}selected{% endif %}>Boscoso</option>
+                  <option value="spanish" {% if estilo_espacio == "spanish" %}selected{% endif %}>Español</option>
+                  <option value="coastal" {% if estilo_espacio == "coastal" %}selected{% endif %}>Costero</option>
+                  <option value="minimalist" {% if estilo_espacio == "minimalist" %}selected{% endif %}>Minimalista</option>
+                  <option value="warm_and_cosy" {% if estilo_espacio == "warm_and_cosy" %}selected{% endif %}>Cálido y acogedor</option>
+                </select>
+              </div>
+
+              <div class="option">
+                <label for="select2">Negative prompt:</label>
+                <textarea name="textoEjemplo2" placeholder="" rows="3" cols="50">{{ detalles }}</textarea>
+              </div>              
+      
+              <div class="option">
+                <button type="submit">Generar</button>
+              </div>
+            </div>
+      
+          </form>
+        </div>
+      </section>  
+</main>
+
+{% endblock %}

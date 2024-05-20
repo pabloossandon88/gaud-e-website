@@ -1,0 +1,68 @@
+{% extends 'GaudeSite/base2.html' %}
+{% load static %}
+
+{% block content%}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+<style>
+  body{
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  main#imgenMain {
+    padding: 50px 50px 150px 50px;
+    margin-bottom: 100px;
+  }
+</style>
+
+<main id="imgenMain">
+    <section id="new-section">
+        <h1>Replace Structure</h1>
+        <p>Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.</p>
+        <div class="content-wrapper">
+            <div id="image-preview-box">
+              <div class="swiper">
+                <!-- Additional required wrapper -->
+                
+                <img class="preview-image" src="data:image/png;base64,{{ imagenes_base64 }}" alt="Generated Image"/>
+   
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+              
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+              
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>              
+              </div>
+            </div>
+      
+          <form action="{% url 'replaceStructure-view' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div id="options-panel">
+              
+              <!-- Agregar el botón para seleccionar archivos -->
+              <div class="option">
+                <label for="imagen">Seleccionar imagen:</label>
+                <input type="file" name="imagen" id="imagen" accept="image/*">
+              </div>
+
+              <div class="option">
+                <label for="select3">Seleccionar:</label>
+                <textarea name="prompt" placeholder="Menciona lo que quieres cambiar en tu imagen" rows="6" cols="50">{{ prompt }}</textarea>
+              </div>
+
+              <div class="option">
+                <button type="submit">Generar</button>
+              </div>
+            </div>
+      
+          </form>
+        </div>
+      </section>  
+</main>
+
+{% endblock %}

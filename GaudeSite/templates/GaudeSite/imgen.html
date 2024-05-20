@@ -1,0 +1,97 @@
+{% extends 'GaudeSite/base.html' %}
+{% load static %}
+
+{% block content%}
+
+<header>
+    <nav class="navbar">
+      <a href="/" style="text-decoration: none; color: inherit;"><!-- Añade la URL de tu página principal aquí -->
+        <span class="logo"><i class="fa-solid fa-bolt"></i> Gaud-E</span>
+      </a>  
+
+        <div class="social-links">
+            <a href="#" target="_blank"><i class="fa-brands fa-linkedin"></i> Linkedin</a>
+            <a href="#" target="_blank"><i class="fa-brands fa-github"></i> Github</a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+        </div>
+    </nav>
+</header>
+
+<main id="imgenMain">
+    <section id="new-section">
+        <h1>Generador de imagen</h1>
+        <p>Genera imágenes de paisajismo, diseños arquitectónicos, construcciones futuristas con nuestra herramienta IA</p>
+        <div class="content-wrapper">
+          <div id="image-preview-box">
+            <div class="swiper">
+              <!-- Additional required wrapper -->
+              
+              <img class="preview-image" src="data:image/png;base64,{{ imagenes_base64 }}" alt="Generated Image"/>
+ 
+              <!-- If we need pagination -->
+              <div class="swiper-pagination"></div>
+            
+              <!-- If we need navigation buttons -->
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
+            
+              <!-- If we need scrollbar -->
+              <div class="swiper-scrollbar"></div>              
+            </div>
+          </div>
+      
+          <form action="{% url 'imgGenerator-view' %}" method="POST">
+            {% csrf_token %}
+            <div id="options-panel">
+              <div class="option">
+                <label for="select1">Tipo de Construcción:</label>
+                <select name="select1" id="select1">
+                  <option value="casa" {% if tipo_construccion == "casa" %}selected{% endif %}>Casa</option>
+                  <option value="edificio" {% if tipo_construccion == "edificio" %}selected{% endif %}>Edificio</option>
+                  <option value="domo" {% if tipo_construccion == "domo" %}selected{% endif %}>Domo</option>
+              </select>
+              
+              </div>
+              
+              <div class="option">
+                <label for="select2">Estilo de Construcción:</label>
+                <select name="select2" id="select2">
+                  <option value="moderna" {% if estilo_construccion == "moderna" %}selected{% endif %}>Moderna</option>
+                  <option value="antigua" {% if estilo_construccion == "antigua" %}selected{% endif %}>Antigua</option>
+                  <option value="futurista" {% if estilo_construccion == "futurista" %}selected{% endif %}>Futurista</option>
+                </select>
+              </div>
+
+              <div class="option">
+                <label for="select3">Tipo de Vista</label>
+                <select name="select3" id="select3">
+                  <option value="vista interior" {% if tipo_vista == "vista interior" %}selected{% endif %}>Interior</option>
+                  <option value="vista exterior" {% if tipo_vista == "vista exterior" %}selected{% endif %}>Exterior</option>
+                </select>
+              </div>
+
+              <div class="option">
+                <label for="select4">Cantidad de Generaciones:</label>
+                <select name="select4" id="select4">
+                  <option value="1" {% if num_imgs == 1 %}selected{% endif %}>1</option>
+                  <option value="2" {% if num_imgs == 2 %}selected{% endif %}>2</option>
+                  <option value="4" {% if num_imgs == 4 %}selected{% endif %}>4</option>
+                </select>
+              </div>
+          
+              <div class="option">
+                <label for="select4">Añade detalles:</label>
+                <textarea name="textoEjemplo" placeholder="Color rojo, 2 pisos, en la playa, etc..." rows="6" cols="50">{{ detalles }}</textarea>
+              </div>
+      
+              <div class="option">
+                <button type="submit">Generar</button>
+              </div>
+            </div>
+      
+          </form>
+        </div>
+      </section>  
+</main>
+
+{% endblock %}

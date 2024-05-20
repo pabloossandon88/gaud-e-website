@@ -1,0 +1,87 @@
+{% extends 'GaudeSite/base2.html' %}
+{% load static %}
+
+{% block content%}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+<style>
+  body{
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  main#imgenMain {
+    padding: 50px 50px 150px 50px;
+    margin-bottom: 100px;
+  }
+</style>
+
+<main id="imgenMain">
+    <section id="new-section">
+        <h1>Upscale</h1>
+        <p>Cree una versión de mayor resolución de una imagen de entrada.</p>
+        <div class="content-wrapper">
+            <div id="image-preview-box">
+              <div class="swiper">
+                <!-- Additional required wrapper -->
+                
+                <img class="preview-image" src="data:image/png;base64,{{ imagenes_base64 }}" alt="Generated Image"/>
+   
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+              
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+              
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>              
+              </div>
+            </div>
+      
+          <form action="{% url 'upScale-view' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div id="options-panel">
+        
+                <!-- Agregar el botón para seleccionar archivos -->
+              <div class="option">
+                <label for="imagen">Seleccionar imagen:</label>
+                <input type="file" name="imagen" id="imagen" accept="image/*">
+              </div>
+
+              <div class="option">
+                <label for="select4">Añade detalles:</label>
+                <textarea name="prompt" placeholder="Color rojo, 2 pisos, en la playa, etc..." rows="6" cols="50">{{ prompt }}</textarea>
+              </div>
+
+              <div class="option">
+                <label for="select5">Negative prompt:</label>
+                <textarea name="negative_prompt" placeholder="" rows="1" cols="50">{{ negative_prompt }}</textarea>
+              </div>
+
+              <div class="option">
+                <label for="seed">Seed:</label>
+                <input type="range" id="seed" name="seed" min="0" max="4294967294" value="0">
+                <span id="seedValue">0</span>
+                <input type="hidden" id="seedHidden" name="seed_hidden" value="0">
+              </div>
+      
+              <div class="option">
+                <button type="submit">Generar</button>
+              </div>
+            </div>
+      
+          </form>
+        </div>
+      </section>  
+</main>
+
+<script>
+  document.getElementById('seed').addEventListener('input', function() {
+      document.getElementById('seedValue').innerText = this.value;
+      document.getElementById('seedHidden').value = this.value;
+  });
+</script>
+
+{% endblock %}

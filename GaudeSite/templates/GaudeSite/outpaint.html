@@ -1,0 +1,135 @@
+{% extends 'GaudeSite/base2.html' %}
+{% load static %}
+
+{% block content%}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+<style>
+  body{
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  main#imgenMain {
+    padding: 50px 50px 150px 50px;
+    margin-bottom: 100px;
+  }
+</style>
+
+<main id="imgenMain">
+    <section id="new-section">
+        <h1>Ampliaciones</h1>
+        <p>Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.</p>
+        <div class="content-wrapper">
+            <div id="image-preview-box">
+              <div class="swiper">
+                <!-- Additional required wrapper -->
+                
+                <img class="preview-image" src="data:image/png;base64,{{ imagenes_base64 }}" alt="Generated Image"/>
+   
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+              
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+              
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>              
+              </div>
+            </div>
+      
+          <form action="{% url 'outPaint-view' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div id="options-panel">
+              
+              <div class="option">
+                <label for="imagen">Seleccionar imagen:</label>
+                <input type="file" name="imagen" id="imagen" accept="image/*">
+              </div>
+
+              <div class="option">
+                <label for="left">Left:</label>
+                <input type="range" id="left" name="left" min="0" max="512" value="0">
+                <span id="leftValue">0</span>
+                <input type="hidden" id="leftHidden" name="left_hidden" value="0">
+              </div>
+              <div class="option">
+                <label for="right">Right:</label>
+                <input type="range" id="right" name="right" min="0" max="512" value="0">
+                <span id="rightValue">0</span>
+                <input type="hidden" id="rightHidden" name="right_hidden" value="0">
+              </div>
+              <div class="option">
+                <label for="up">Up:</label>
+                <input type="range" id="up" name="up" min="0" max="512" value="0">
+                <span id="upValue">0</span>
+                <input type="hidden" id="upHidden" name="up_hidden" value="0">
+              </div>
+              <div class="option">
+                <label for="seed">Down:</label>
+                <input type="range" id="down" name="down" min="0" max="512" value="0">
+                <span id="downValue">0</span>
+                <input type="hidden" id="downHidden" name="down_hidden" value="0">
+              </div>
+
+              <div class="option">
+                <label for="select4">Añade detalles:</label>
+                <textarea name="textoEjemplo" placeholder="Color rojo, 2 pisos, en la playa, etc..." rows="6" cols="50">{{ detalles }}</textarea>
+              </div>
+
+              <div class="option">
+                <label for="seed">Seed:</label>
+                <input type="range" id="seed" name="seed" min="0" max="4294967294" value="0">
+                <span id="seedValue">0</span>
+                <input type="hidden" id="seedHidden" name="seed_hidden" value="0">
+              </div>
+              
+      
+              <div class="option">
+                <button type="submit">Generar</button>
+              </div>
+            </div>
+      
+          </form>
+        </div>
+      </section>  
+</main>
+
+<script>
+  document.getElementById('seed').addEventListener('input', function() {
+      document.getElementById('seedValue').innerText = this.value;
+      document.getElementById('seedHidden').value = this.value;
+  });
+</script>
+
+<script>
+  document.getElementById('left').addEventListener('input', function() {
+      document.getElementById('leftValue').innerText = this.value;
+      document.getElementById('leftHidden').value = this.value;
+  });
+</script>
+
+<script>
+  document.getElementById('right').addEventListener('input', function() {
+      document.getElementById('rightValue').innerText = this.value;
+      document.getElementById('rightHidden').value = this.value;
+  });
+</script>
+
+<script>
+  document.getElementById('up').addEventListener('input', function() {
+      document.getElementById('upValue').innerText = this.value;
+      document.getElementById('upHidden').value = this.value;
+  });
+</script>
+
+<script>
+  document.getElementById('down').addEventListener('input', function() {
+      document.getElementById('downValue').innerText = this.value;
+      document.getElementById('downHidden').value = this.value;
+  });
+</script>
+
+{% endblock %}
