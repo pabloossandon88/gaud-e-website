@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import base64
+from django.contrib.auth.decorators import login_required
 
 # Import API functions
 from .APIfunctions.image_generation_api import llamar_api
@@ -14,6 +15,40 @@ from .APIfunctions.replaceStructure     import llamar_api_replace_structure
 from .APIfunctions.outpaint             import llamar_api_outpaint
 from .APIfunctions.interiorRedecoration import llamar_api_interiorRedecoration
 from .APIfunctions.upscale              import llamar_api_upscale
+
+types_construction = [
+            ['Casa', 'house'],
+            ['Edificio', 'building'],
+            ['Cafeteria', 'coffe_shop'],
+            ['Fabrica', 'factory'],
+            ['Restaurant', 'restaurant'],
+            ['Hospital', 'hospital'],
+            ['Hotel', 'hotel'],
+            ['Libreria', 'library'],
+            ['Teatro', 'theater'],
+            ['Cine', 'cinema'],
+            ['Museo', 'museum'],
+            ['Centro Comercial', 'mall'],
+            #['Edificio de Oficinas', 'office_building'],
+        ]
+
+styles = [
+            ['Realista', 'realistic'],
+            ['CGI', 'CGI'],
+            ['Night', 'night'],
+            ['Snow', 'snow'],
+            ['Rain', 'rain'],
+            ['sketch', 'sketch'],
+            ['watercolor', 'watercolor'],
+            ['illustration', 'illustration']
+        ]
+models = [
+            ['SD3', 'sd3'],
+            ['SD3-TURBO', 'sd3-turbo']
+        ]
+
+aspectratio = ['1:1','2:3','3:2','4:5','5:4','9:16','9:21','16:9','21:9']
+
 
 # Function to convert bytes to base64
 def bytes_to_base64(image_bytes):
@@ -194,14 +229,25 @@ def exteriorImage(request):
         final_prompt= "Create a stunning architectural an image from the exterior featuring a " + construction + " in" + style + " style, capturing its essence and ambiance in vivid detail. The construction must have " + prompt       
         resultado = llamar_api_exterior(final_prompt, aspect_ratio, negative_prompt, model)        
         imagenes_base64 = bytes_to_base64(resultado)
+        d = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         context = {
             'imagenes_base64': imagenes_base64,
-            'prompt': prompt,
+            'prompt': prompt
         }
 
-        return render(request, 'GaudeSite/exterior.html', context)                
-    return render(request, 'GaudeSite/exterior.html')
+        return render(request, 'GaudeSite/exterior.html', context) 
+
+    
+
+    context = {
+        'types_construction': types_construction,
+        'styles' : styles,
+        'models' : models,
+        'aspectratio' : aspectratio
+        
+    }        
+    return render(request, 'GaudeSite/exterior.html', context)
 
 def outPaint(request):
     if request.method == 'POST':

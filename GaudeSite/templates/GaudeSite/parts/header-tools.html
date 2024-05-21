@@ -1,0 +1,86 @@
+<header class="bg-header fixed w-full p-2 text-white shadow-md z-10">
+    <nav class="border-gray-200 py-2.5 dark:bg-gray-900">
+        <div class="flex flex-wrap items-center justify-between  px-4 mx-auto">
+            <a href="{% url 'home-view' %}" class="flex items-center">
+                <img src="http://127.0.0.1:8000/static/images/logoGaudi.png" class="h-6 mr-3 sm:h-9"/>
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">GAUD-E</span>
+            </a>
+            
+            <div class="flex items-center" >
+                <!--
+                <div class="hidden mt-2 mr-4 sm:inline-block">
+                    <a class="github-button" href="https://github.com/themesberg/landwind" data-size="large" data-icon="octicon-star" data-show-count="true" aria-label="Star themesberg/landwind on GitHub">Star</a>
+                </div>
+                -->
+                <!-- <a href="#" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a> -->
+                
+                <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                    <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+
+            </div>
+            
+            <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+                <ul class="flex flex-col mt-4 font-light lg:flex-row lg:space-x-8 lg:mt-0">
+
+                    <!--
+                    <li>
+                        <a href="#" class="block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white " aria-current="page">Home</a>
+                    </li>
+                    -->
+
+                    <div class="group inline-block">
+                        <button
+                          class="outline-none focus:outline-none flex items-center min-w-32"
+                        >
+                          <span class="pr-1  flex-1">Herramientas AI</span>
+                          <span>
+                            <svg
+                              class="fill-current h-4 w-4 transform group-hover:-rotate-180
+                              transition duration-150 ease-in-out"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <ul class=" rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32" style="background: rgba(27,149,149,1);">
+                            <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">Exterior AI</li>
+                            <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">Interior AI</li>
+                            <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">MasterPlan AI</li>
+                            <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">Landscape 3D</li>
+                            <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">Ampliaciones</li>
+                            <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">Redecoración de interiores</li>
+                            <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">Render de dibujo o imagen</li>
+                            <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">Structure</li>
+                            <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">Remove Background</li>
+                            <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">Search and Replace</li>
+                            <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">Upscale</li>
+                        </ul>
+                    </div>
+
+                    <!--
+                    <a href="{% url 'login-view' %}" class="text-white btn-pay focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1  sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800 ">Ingresar</a>
+                
+                    <a href="{% url 'register-view' %}" class="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-1  sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800 ">Registrarse</a>
+                    -->
+
+                    <a href="{% url 'login-view' %}" class="text-white focus:ring-4 focus:ring-purple-300 font-normal rounded-lg text-sm py-1  sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800 ">
+                        <span class="valor text-sm text-gray-300">150<i class="fas fa-coins  text-sm pl-2"></i></span>
+                    </a>
+                
+
+                    <img class="inline-block h-7 w-7 rounded-full ring-2 ring-white ml-0" src="http://127.0.0.1:8000/static/images/user-default.png" style="margin-left: 10px;" alt="">
+                    
+                </ul>
+
+            </div>
+            
+        </div>
+    </nav>
+</header>

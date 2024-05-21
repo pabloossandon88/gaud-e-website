@@ -1,44 +1,52 @@
-{% extends 'GaudeSite/base2.html' %}
+{% extends 'GaudeSite/base-tools.html' %}
 {% load static %}
 
 {% block content%}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
-<style>
-  body{
-    max-width: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  main#imgenMain {
-    padding: 50px 50px 150px 50px;
-    margin-bottom: 100px;
-  }
-</style>
 
-<main id="imgenMain">
-    <section id="new-section">
-        <h1>Exterior AI</h1>
-        <p>Genera imagenes de interior</p>
-        <div class="content-wrapper">
+<main>
+  <div class="grid grid-cols-3 py-5 h-screen">
+    <div class="pl-2 pr-1 pt-24 border-r border-gray-200">
 
-          <div class="text-center hidden">
-              <div role="status">
-                  <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                      <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-                  </svg>
-                  <span class="sr-only">Loading...</span>
-              </div>
-          </div>
-
-          {% include './parts/img-box.html' %}
-
-          <form action="{% url 'exteriorImage-view' %}" method="POST">
+        <form action="{% url 'exteriorImage-view' %}" method="POST">
+          <div class="max-h-[70vh] overflow-y-scroll">
+            <h1 class="mb-2 text-xl text-teal-700 dark:text-white font-extrabold">Exterior AI</h1>
+            <p  class="mb-2 text-xs font-medium text-teal-700 dark:text-white">Sube un boceto o modelo para rediseñar tu espacio exterior con más de 20 estilos únicos.</p>
             {% csrf_token %}
-            <div id="options-panel">
-              <div class="option">
+
+            <!--
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="select1">
+                Username
+              </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
+            </div>
+            -->
+            
+            <div class="mb-4 border border-gray-200 p-3">
+              <h3 class="mb-2 text-sm font-medium text-teal-700 dark:text-white">Tipo de construcción</h3>
+              <ul class="grid grid-cols-3 gap-1 ">
+                  
+                  
+                    {% for type in types_construction %} 
+                        <li>
+                          <input type="radio" id="cont-{{ type.1 }}" name="construction" value="{{ type.1 }}" class="hidden peer">
+                          <label for="const-{{ type.1 }}" class="inline-flex items-center justify-between  p-1 text-gray-400 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                              <div class="block">
+                                  <div class="w-full text-xs font-semibold">{{ type.0 }}</div>
+                              </div>
+                          </label>
+                      </li>
+                    {% endfor %} 
+                  
+              </ul>
+            </div>
+          
+
+            <!--
+            
+              <div>
                 <label for="select1">Tipo de construcción:</label>
                 <select name="select1" id="select1">
                   <option value="house" {% if tipo_construccion == "house" %}selected{% endif %}>Casa</option>
@@ -58,8 +66,27 @@
                   <option value="museum" {% if tipo_construccion == "museum" %}selected{% endif %}>Museo</option>
                 </select>
               </div>
-              
-              
+              -->
+            
+            <div class="mb-4 border border-gray-200 p-3">
+              <h3 class="mb-2 text-sm font-medium text-teal-700 dark:text-white">Estilo</h3>
+              <ul class="grid grid-cols-4 gap-1 ">
+                    {% for type in styles %} 
+                      <li>
+                          <input type="radio" id="cont-{{ type.1 }}" name="construction" value="{{ type.1 }}" class="hidden peer">
+                          <label for="const-{{ type.1 }}" class="inline-flex items-center justify-between  p-1 text-gray-400 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                              <div class="block">
+                                  <div class="w-full text-xs font-semibold">{{ type.0 }}</div>
+                              </div>
+                          </label>
+                      </li>
+                    {% endfor %} 
+              </ul>
+            </div>
+
+            <!-- 
+            
+              <div id="options-panel relative w-100">
               <div class="option">
                 <label for="select2">Estilo:</label>
                 <select name="select2" id="select2">
@@ -73,57 +100,146 @@
                   <option value="illustration" {% if estilo_construccion == "illustration" %}selected{% endif %}>Ilustración</option>
                 </select>
               </div>
+            -->
 
-              <div class="option">
-                <label for="select4">Añade detalles:</label>
-                <textarea name="prompt" placeholder="Color rojo, 2 pisos, en la playa, etc..." rows="6" cols="50">{{ prompt }}</textarea>
+            <div class="w-96">
+              <div class="relative w-full">
+                <textarea
+                  class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
+                  placeholder=" "></textarea>
+                <label
+                  class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-teal-700 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                  Añade detalles (prompt) :
+                </label>
               </div>
-
-              <div class="option">
-                <label for="select5">Negative prompt:</label>
-                <textarea name="negative_prompt" placeholder="" rows="1" cols="50">{{ negative_prompt }}</textarea>
-              </div>
-
-              <div class="option">
-                <label for="select6">Selecciona modelo:</label>
-                <select name="select6" id="select6">
-                  <option value="sd3" {% if estilo_construccion == "sd3" %}selected{% endif %}>sd3</option>
-                  <option value="sd3-turbo" {% if estilo_construccion == "sd3-turbo" %}selected{% endif %}>sd3-turbo</option>
-                </select>
-              </div>
-
-              <div class="option">
-                <label for="select3">Aspect Ratio:</label>
-                <select name="select3" id="select3">
-                  <option value="1:1" {% if estilo_construccion == "1:1" %}selected{% endif %}>1:1</option>
-                  <option value="2:3" {% if estilo_construccion == "2:3" %}selected{% endif %}>2:3</option>
-                  <option value="3:2" {% if estilo_construccion == "3:2" %}selected{% endif %}>3:2</option>
-                  <option value="4:5" {% if estilo_construccion == "4:5" %}selected{% endif %}>4:5</option>
-                  <option value="5:4" {% if estilo_construccion == "5:4" %}selected{% endif %}>5:4</option>
-                  <option value="9:16" {% if estilo_construccion == "9:16" %}selected{% endif %}>9:16</option>
-                  <option value="9:21" {% if estilo_construccion == "9:21" %}selected{% endif %}>9:21</option>
-                  <option value="16:9" {% if estilo_construccion == "16:9" %}selected{% endif %}>16:9</option>
-                  <option value="21:9" {% if estilo_construccion == "21:9" %}selected{% endif %}>21:9</option>
-                </select>
-              </div>
-
-              <div class="option">
-                <label for="seed">Seed:</label>
-                <input type="range" id="seed" name="seed" min="0" max="4294967294" value="0">
-                <span id="seedValue">0</span>
-                <input type="hidden" id="seedHidden" name="seed_hidden" value="0">
-              </div>
-
-              <div class="option">
-                <button class="bg-teal-700" type="submit">Generar</button>
-              </div>
-              
             </div>
+
+            <!--
+            <div class="option">
+              <label for="select4">Añade detalles:</label>
+              <textarea name="prompt" placeholder="Color rojo, 2 pisos, en la playa, etc..." rows="6" cols="50">{{ prompt }}</textarea>
+            </div>
+            -->
+
+            <div class="w-96">
+              <div class="relative w-full">
+                <textarea
+                  class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
+                  placeholder=" "></textarea>
+                <label
+                  class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-teal-700 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                  Negative prompt :
+                </label>
+              </div>
+            </div>
+
+            <!--
+            <div class="option">
+              <label for="select5">Negative prompt:</label>
+              <textarea name="negative_prompt" placeholder="" rows="1" cols="50">{{ negative_prompt }}</textarea>
+            </div>
+            -->
+
+            <div class="mb-4 border border-gray-200 p-3">
+              <h3 class="mb-2 text-sm font-medium text-teal-700 dark:text-white">Modelo</h3>
+              <ul class="grid grid-cols-3 gap-1 ">
+                    {% for type in models %} 
+                      <li>
+                          <input type="radio" id="cont-{{ type.1 }}" name="construction" value="{{ type.1 }}" class="hidden peer">
+                          <label for="const-{{ type.1 }}" class="inline-flex items-center justify-between  p-1 px-3 text-gray-400 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                              <div class="block">
+                                  <div class="w-full text-xs font-semibold">{{ type.0 }}</div>
+                              </div>
+                          </label>
+                      </li>
+                    {% endfor %} 
+              </ul>
+            </div>
+
+            <!--
+            <div class="option">
+              <label for="select6">Selecciona modelo:</label>
+              <select name="select6" id="select6">
+                <option value="sd3" {% if estilo_construccion == "sd3" %}selected{% endif %}>sd3</option>
+                <option value="sd3-turbo" {% if estilo_construccion == "sd3-turbo" %}selected{% endif %}>sd3-turbo</option>
+              </select>
+            </div>
+            -->
+
+            <div class="mb-4 border border-gray-200 p-3">
+              <h3 class="mb-2 text-sm font-medium text-teal-700 dark:text-white">Aspect Ratio</h3>
+              <ul class="grid grid-cols-5 gap-1 ">
+                    {% for type in aspectratio %} 
+                      <li>
+                          <input type="radio" id="cont-{{ type }}" name="construction" value="{{ type }}" class="hidden peer">
+                          <label for="const-{{ type }}" class="inline-flex items-center justify-between  p-1 px-3 text-gray-400 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                              <div class="block">
+                                  <div class="w-full text-xs font-semibold">{{ type }}</div>
+                              </div>
+                          </label>
+                      </li>
+                    {% endfor %} 
+              </ul>
+            </div>
+
+            <!--
+            <div class="option">
+              <label for="select3">Aspect Ratio:</label>
+              <select name="select3" id="select3">
+                <option value="1:1" {% if estilo_construccion == "1:1" %}selected{% endif %}>1:1</option>
+                <option value="2:3" {% if estilo_construccion == "2:3" %}selected{% endif %}>2:3</option>
+                <option value="3:2" {% if estilo_construccion == "3:2" %}selected{% endif %}>3:2</option>
+                <option value="4:5" {% if estilo_construccion == "4:5" %}selected{% endif %}>4:5</option>
+                <option value="5:4" {% if estilo_construccion == "5:4" %}selected{% endif %}>5:4</option>
+                <option value="9:16" {% if estilo_construccion == "9:16" %}selected{% endif %}>9:16</option>
+                <option value="9:21" {% if estilo_construccion == "9:21" %}selected{% endif %}>9:21</option>
+                <option value="16:9" {% if estilo_construccion == "16:9" %}selected{% endif %}>16:9</option>
+                <option value="21:9" {% if estilo_construccion == "21:9" %}selected{% endif %}>21:9</option>
+              </select>
+            </div>
+            -->
+
+            <div class="mb-4 border border-gray-200 p-3">
+              <label for="default-range" class="block mb-2 text-sm font-medium text-teal-700 dark:text-white">Seed</label>
+              <input id="default-range" type="range" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+            </div>
+
+            <!--
+            <div class="option">
+              <label for="seed">Seed:</label>
+              <input type="range" id="seed" name="seed" min="0" max="4294967294" value="0">
+              <span id="seedValue">0</span>
+              <input type="hidden" id="seedHidden" name="seed_hidden" value="0">
+            </div>
+            -->
+
+          </div>
+
+            <div class="absolute bottom-0 left-0 w-full">
+              <button class="bg-teal-700 py-2 text-white font-bold relative" type="submit" style="width: 33.3vw;">
+                <span>Generar</span>
+                <span class="valor absolute bottom-2 right-3 text-sm text-teal-400">10<i class="fas fa-coins  text-sm pl-2"></i></span>
+              </button>
+                
+            </div>
+            
+            
+    
+        </form>
+
       
-          </form>
-        </div>
-      </section>  
+    </div>
+    
+    <div class="grid grid-cols-subgrid gap-1 col-span-2">
+      <div class="">
+        {% include './parts/img-box.html' %}
+      </div>
+    </div>
+  </div>
 </main>
+
+
+
 
 
 <script>

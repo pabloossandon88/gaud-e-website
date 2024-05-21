@@ -1,8 +1,11 @@
-<div id="image-preview-box">
-              
-    <div class="swiper">
 
-        <img class="preview-image" src="data:image/png;base64,{{ imagenes_base64 }}" alt="Generated Image"/>
+              
+    <div class="swiper w-full h-full flex justify-center items-center">
+        {% if imagenes_base64 %}
+            <img class="preview-image" src="data:image/png;base64,{{ imagenes_base64 }}" alt="Generated Image"/>
+        {% else %}
+            <i class="fa-solid fa-image text-6xl text-teal-700 opacity-40"></i>
+        {% endif %}
 
         <!--
         <div class="swiper-pagination"></div>
@@ -12,4 +15,3 @@
         -->
 
     </div>
-</div>
