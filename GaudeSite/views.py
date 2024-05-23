@@ -561,18 +561,18 @@ def create_payment(request):
             "transactions": [{
                 "item_list": {
                     "items": [{
-                        "name": "Producto de ejemplo",
+                        "name": "Suscripción Starter",
                         "sku": "12345",
-                        "price": "0.01",
+                        "price": "20.00",
                         "currency": "USD",
                         "quantity": 1
                     }]
                 },
                 "amount": {
-                    "total": "0.01",
+                    "total": "20.00",
                     "currency": "USD"
                 },
-                "description": "Compra de ejemplo."
+                "description": "Compra de Suscripción Starter."
             }]
         })
 
@@ -581,9 +581,9 @@ def create_payment(request):
                 if link.rel == "approval_url":
                     return redirect(link.href)
         else:
-            return render(request, 'payments/payment_error.html', {'error': payment.error})
+            return render(request, 'GaudeSite/payments/payment_error.html', {'error': payment.error})
 
-    return render(request, 'payments/payment.html')
+    return render(request, 'GaudeSite/payments/payment.html')
 
 def execute_payment(request):
     payment_id = request.GET.get('paymentId')
@@ -592,9 +592,9 @@ def execute_payment(request):
     payment = paypalrestsdk.Payment.find(payment_id)
 
     if payment.execute({"payer_id": payer_id}):
-        return render(request, 'payments/payment_success.html')
+        return render(request, 'GaudeSite/payments/payment_success.html')
     else:
-        return render(request, 'payments/payment_error.html', {'error': payment.error})
+        return render(request, 'GaudeSite/payments/payment_error.html', {'error': payment.error})
 
 def payment_cancelled(request):
-    return render(request, 'payments/payment_cancelled.html')
+    return render(request, 'GaudeSite/payments/payment_cancelled.html')
