@@ -1,4 +1,4 @@
-{% extends 'GaudeSite/base-tools.html' %}
+{% extends 'GaudeSite/base2.html' %}
 {% load static %}
 
 {% block content%}
@@ -25,11 +25,11 @@
             -->
             
             <div class="mb-4 border border-gray-200 p-3">
-              <h3 class="mb-2 text-sm font-medium text-teal-700 dark:text-white">Tipo de construcción</h3>
+              <h3 class="mb-2 text-sm font-medium text-teal-700 dark:text-white">{{%types_construction.name%}}</h3>
               <ul class="grid grid-cols-3 gap-1 ">
                   
                   
-                    {% for type in types_construction %} 
+                    {% for type in types_construction.items %} 
                         <li>
                           <input type="radio" id="cont-{{ type.1 }}" name="construction" value="{{ type.1 }}" class="hidden peer">
                           <label for="const-{{ type.1 }}" class="inline-flex items-center justify-between  p-1 text-gray-400 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">

@@ -1,349 +1,99 @@
-{% extends 'GaudeSite/base2.html' %}
+{% extends 'GaudeSite/base.html' %}
 {% load static %}
 
 {% block content%}
 
 
 <!-- Start block -->
-<section class="h-screen dark:bg-gray-900">
+    <section class="h-screen dark:bg-gray-900">
 
-  
-  <video autoplay muted loop>
-      <source src="./static/images/casa.cascada_animation.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-  </video>
-  
+    
+        <video autoplay muted loop>
+            <source src="./static/images/casa.cascada_animation.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <div class="layer"></div>
 
-
-  <div class="layer"></div>
-
-  <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28 h-screen">
-      <div class="mr-auto place-self-center lg:col-span-7">
-          <h1 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white text-white">Architect Gaud-E AI</h1>
-          <p class="max-w-2xl mb-6 font-light text-gray-500 text-white lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400 ">Generación de Diseños Arquitectónicos 2D y 3D con Inteligencia Artificial</p>
-          <p class="max-w-2xl mb-6 font-light text-gray-500 text-white lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400 ">Aplicando inteligencia artificial al diseño arquitectónico para obtener resultados óptimos en eficiencia energética y medioambiental.</p>
-          <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-              <a href="#" class="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800 text-white">
-                  Probar Ahora
-              </a> 
-              <a href="#" class="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800 text-white">
-                  Explorar Más
-              </a> 
-              <a href="#" class="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-white border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800 text-white">
-                  Estudio en Profundidad
-              </a> 
-             
-          </div>
-      </div>
-      <!--
-      <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-          <img src="./images/hero.png" alt="hero image">
-      </div>                
-      -->
-  </div>
-</section>
-<!-- End block -->
-
-<!-- Start block -->
-<section class="bg-gray-50 dark:bg-gray-800">
-  
-  <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-24 lg:px-6 text-center ">
-
-      <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white text-teal-700">Herramientas Gaud-E</h2>
-      <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400 text-teal-700">Genera imágenes de paisajismo, diseños arquitectónicos, construcciones futuristas con nuestra herramienta IA</p>
-
-      <div class="grid grid-cols-2 gap-12 mt-24">
-
-          <div class="flex-1 w-25 m-0 shadow-lg">
-              <img class="w-90 rounded-t-lg grayscale opacity-50" src="./static/images/evaluacion-energetica.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 px-5 bg-white">
-                <h2 class="text-2xl font-bold text-gray-300 mt-5">Evaluación Energética</h2>
-                <p class="text-center my-5 min-h-20 text-gray-300">A partir de fotografias o vídeo obten un análisis energético y medioambiental de tu proyecto</p>
-                <a href="#" class="bg-gray-300 text-white font-bold py-2 px-4 rounded">Próximamente</a>
-              </div>
-          </div>
-          <div class="flex-1 w-25 m-0 shadow-lg">
-              <img class="w-90 rounded-t-lg grayscale opacity-50" src="./static/images/ambiente-3d.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
-                <h2 class="text-2xl font-bold text-gray-300 mt-5">Ambiente 3D</h2>
-                <p class="text-center my-5 min-h-20 text-gray-300">Genera, explora y personaliza tus espacios interiores en 360°</p>
-                <a href="#" class="bg-gray-300 text-white font-bold py-2 px-4 rounded">Próximamente</a>
-              </div>
-          </div>
-          <!--
-          <div class="flex-1 w-25 m-0">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-2xl font-bold text-teal-700 mt-5">Texto a 3D</h2>
-              <p class="text-center my-5 min-h-20 text-teal-700">Genera modelos 3D arquitectónicos completos a partir de texto.</p>
-              <a href="#" class="bg-teal-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Próximamente</a>
-          </div>
-          <div class="flex-1 w-25 m-0">
-              <img class="w-90" src="./static/images/img-default.png" alt="">
-              <h2 class="text-2xl font-bold text-teal-700 mt-5">Imagen a 3D</h2>
-              <p class="text-center my-5 min-h-20 text-teal-700">De fotografia o vídeo a 3D Splating Gaussiano.</p>
-              <a href="#" class="bg-teal-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Próximamente</a>
-          </div>
-          -->
-
-      </div>
-      
-      <br><br>
-
-      <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400 text-teal-700">Más herramientas</p>
-
-
-      <div class="grid grid-cols-4 gap-6">
-          <div class="flex-1 w-25 my-5 shadow-md">
-              <img class="w-90 rounded-t-lg bg-white" src="./static/images/exterior.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
-                <h2 class="text-lg font-bold text-teal-700 m-5">Exterior AI</h2>
-                <a href="{% url 'exteriorImage-view' %}" class="bg-teal-700 hover:bg-teal-800 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
-              </div>
-          </div>
-          <div class="flex-1 w-25 my-5 shadow-md">
-              <img class="w-90 rounded-t-lg" src="./static/images/interior.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
-                <h2 class="text-lg font-bold text-teal-700 m-5">Interior AI</h2>
-                <a href="{% url 'interiorImage-view' %}" class="bg-teal-700 hover:bg-teal-800 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
-              </div>
-          </div>
-          <div class="flex-1 w-25 my-5 shadow-md">
-              <img class="w-90 rounded-t-lg" src="./static/images/masterplan.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
-                <h2 class="text-lg font-bold text-teal-700 m-5">Masterplan AI</h2>
-                <a href="{% url 'masterPlan-view' %}" class="bg-teal-700 hover:bg-teal-800 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
-              </div>
-          </div>
-          <div class="flex-1 w-25 my-5 shadow-md">
-              <img class="w-90 rounded-t-lg" src="./static/images/landscape.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
-                <h2 class="text-lg font-bold text-teal-700 m-5">Landscape AI</h2>
-                <a href="{% url 'landScape-view' %}" class="bg-teal-700 hover:bg-teal-800 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
-              </div>
-          </div>
-          <div class="flex-1 w-25 my-5 shadow-md">
-              <img class="w-90 rounded-t-lg" src="./static/images/ampliaciones.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
-                <h2 class="text-lg font-bold text-teal-700 m-5">Ampliaciones</h2>
-                <a href="{% url 'outPaint-view' %}" class="bg-teal-700 hover:bg-teal-800 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
-              </div>
-          </div>
-          <div class="flex-1 w-25 my-5 shadow-md">
-              <img class="w-90 rounded-t-lg" src="./static/images/redecoracion.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
-                <h2 class="text-lg font-bold text-teal-700 m-5">Redecoración de interiores</h2>
-                <a href="{% url 'interiorRedecoration-view' %}" class="bg-teal-700 hover:bg-teal-800 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
-              </div>
-          </div>
-          <div class="flex-1 w-25 my-5 shadow-md">
-              <img class="w-90 rounded-t-lg" src="./static/images/renderizacion.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
-                <h2 class="text-lg font-bold text-teal-700 m-5">Render de dibujo o imagen</h2>
-                <a href="{% url 'sketchImg-view' %}" class="bg-teal-700 hover:bg-teal-800 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
-             </div>
-          </div>
-          <div class="flex-1 w-25 my-5 shadow-md">
-              <img class="w-90 rounded-t-lg" src="./static/images/structure.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
-                <h2 class="text-lg font-bold text-teal-700 m-5">Structure</h2>
-                <a href="{% url 'replaceStructure-view' %}" class="bg-teal-700 hover:bg-teal-800 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
-              </div>
-          </div>
-          <div class="flex-1 w-25 my-5 shadow-md">
-              <img class="w-90 rounded-t-lg" src="./static/images/background.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
-                <h2 class="text-lg font-bold text-teal-700 m-5">Remove Background</h2>
-                <a href="{% url 'removeBackground-view' %}" class="bg-teal-700 hover:bg-teal-800 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
-              </div>
-          </div>
-          <div class="flex-1 w-25 my-5 shadow-md">
-              <img class="w-90 rounded-t-lg" src="./static/images/search.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
-                <h2 class="text-lg font-bold text-teal-700 m-5">Search and Replace</h2>
-                <a href="{% url 'searchReplace-view' %}" class="bg-teal-700 hover:bg-teal-800 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
-              </div>
-          </div>
-          <div class="flex-1 w-25 my-5 shadow-md">
-              <img class="w-90 rounded-t-lg" src="./static/images/upscale.jpeg" alt="">
-              <div class="border border-gray-100 rounded-b-lg   pb-5 bg-white">
-                <h2 class="text-lg font-bold text-teal-700 m-5">Upscale</h2>
-                <a href="{% url 'upScale-view' %}" class="bg-teal-700 hover:bg-teal-800 text-white py-2 px-2 rounded">¡Prueba Ahora!</a>
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
-
-
-<!-- End block -->
-
-
-
-
-  
-
-<!-- Start block PRECIOS -->
-
-<section class="bg-white dark:bg-gray-900">
-    <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-2 lg:px-6">
-        <div class="max-w-screen-md mx-auto mb-8 text-center lg:mb-12">
-            <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white text-teal-700">Para profesionales de la arquitectura como usted</h2>
-            <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400 text-teal-700">En GAUD-E, potenciamos la arquitectura con IA innovadora para generar valor duradero y fomentar el crecimiento del diseño sustentable.</p>
+        <div class="grid max-w-screen-xl px-24 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28 h-screen">
+            <div class="mr-auto place-self-center lg:col-span-7">
+                <h1 class="max-w-2xl mb-4 text-4xl font-bold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white text-white">AI generativa de arquitectura</h1>
+                <p class="max-w-2xl mb-6 font-light text-gray-500 text-white lg:mb-8 md:text-sm lg:text-lg dark:text-gray-400 ">Generación de Diseños Arquitectónicos 2D y 3D con Inteligencia Artificial</p>
+                <p class="max-w-2xl mb-6 font-light text-gray-500 text-white lg:mb-8 md:text-sm lg:text-lg dark:text-gray-400 ">Aplicando inteligencia artificial al diseño arquitectónico para obtener resultados óptimos en eficiencia energética y medioambiental.</p>
+                <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                    <a href="#" class="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800 text-white">
+                        Probar Ahora
+                    </a>
+                </div>
+            </div>
+            <!--
+            <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+                <img src="./images/hero.png" alt="hero image">
+            </div>                
+            -->
         </div>
-        <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
-            <!-- Pricing Card -->
-            <div class="flex flex-col max-w-lg p-6 mx-auto text-center text-gray-900 bg-white border border-gray-200 rounded-lg shadow-xl dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-                <h3 class="mb-4 text-2xl font-semibold text-teal-700">Starter</h3>
-                <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400 text-teal-700">Explore las herramientas de IA para mejorar su flujo de trabajo de diseño.</p>
-                <div class="flex items-baseline justify-center my-8">
-                    <span class="mr-2 text-5xl font-extrabold text-teal-700">$20</span>
-                    <span class="text-gray-500 dark:text-gray-400 text-teal-700">usd</span>
-                </div>
-                <!-- List -->
-               
-                <ul role="list" class="mb-8 space-y-4 text-left">
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">100 diseños</span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">Diseños de alta resolución</span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">Escalado 4K</span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">Uso comercial</span>
-                    </li>
-                </ul>
-                <br>
-                <br>
-                <a href="#" class="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-purple-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900">Compra 1000 Creditos</a>
-            </div>
-            <!-- Pricing Card -->
-            <div class="flex flex-col max-w-lg p-6 mx-auto text-center text-gray-900 bg-white border border-gray-200 rounded-lg shadow-xl dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-                <h3 class="mb-4 text-2xl font-semibold text-teal-700">PRO</h3>
-                <p class="font-light text-teal-700 sm:text-lg dark:text-gray-400">Genere diseños y efectos visuales asombrosos a un coste mínimo.</p>
-                <div class="flex items-baseline justify-center my-8">
-                    <span class="mr-2 text-5xl font-extrabold text-teal-700">$39</span>
-                    <span class="text-teal-700 dark:text-gray-400" dark:text-gray-400>usd</span>
-                </div>
-                <!-- List -->
-                <ul role="list" class="mb-8 space-y-4 text-left">
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">250 diseños</span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">Diseños de alta resolución <span class="font-semibold"></span></span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">Guardar diseños generados<span class="font-semibold"> por un año</span></span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">Escalado 4K <span class="font-semibold text-teal-700"></span></span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">Uso Comercial<span class="font-semibold text-teal-700"></span></span>
-                    </li>
-                </ul>
-                <a href="#" class="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-purple-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900">Comprar 2500 créditos</a>
-            </div>
-            <!-- Pricing Card -->
-            <div class="flex flex-col max-w-lg p-6 mx-auto text-center text-gray-900 bg-white border border-gray-200 rounded-lg shadow-xl dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-                <h3 class="mb-4 text-2xl font-semibold text-teal-700">Enterprise</h3>
-                <p class="font-light text-teal-700 sm:text-lg dark:text-gray-400">Best for large scale uses and extended redistribution rights.</p>
-                <div class="flex items-baseline justify-center my-8">
-                    <span class="mr-2 text-5xl font-extrabold text-teal-700">$189</span>
-                    <span class="text-teal-700 dark:text-gray-400">usd</span>
-                </div>
-                <!-- List -->
-                <ul role="list" class="mb-8 space-y-4 text-left">
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">1000 diseños</span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">Diseños de alta resolución <span class="font-semibold"></span></span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">Guardar diseños generados<span class="font-semibold"> por un año</span></span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">Escalado 4K <span class="font-semibold text-teal-700"></span></span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <!-- Icon -->
-                        <svg class="flex-shrink-0 w-5 h-5 text-teal-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-teal-700">Uso Comercial<span class="font-semibold text-teal-700"></span></span>
-                    </li>
-                </ul>
-                <a href="#" class="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-purple-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900">Comprar 10000 créditos</a>
-            </div>
-        </div>
-    </div>
-  </section>
-  <!-- End block -->
-
-
-
-<br>
-<br>
-<!-- Start block SPONSORS -->
-<section class="bg-white dark:bg-gray-900">
-  <div class="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16 text-center">
-      <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white text-teal-700">Con el apoyo de :</h2>
-      <div class="px-12 grid grid-cols-2 gap-8 text-gray-500 sm:gap-12  dark:text-gray-400 ">
-          <a href="#" class="flex items-center lg:justify-center">
-              <img class="w-90 rounded-t-lg hover:grayscale z-0" src="./static/images/logo-sercotec.png" alt="">
-          </a>
-          <a href="#" class="flex items-center lg:justify-center">
-            <img class="w-90 rounded-t-lg hover:grayscale z-0" src="./static/images/logo-uc.svg" alt="">                                              
-          </a>
-          
-      </div>
-  </div>
-</section>
+    </section>
 <!-- End block -->
+
+<!-- redesign y render -->
+
+
+
+<!-- More tools -->
+
+<!-- 6 tools de 2 en 2 -->
+
+<!-- Ready to create stunning designs? -->
 
 <!-- Start block Comienza una prueba -->
-<section class="bg-gray-50 dark:bg-gray-800">
-    <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
-        <div class="max-w-screen-sm mx-auto text-center">
-            <h2 class="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-teal-700 dark:text-white">Comience hoy mismo su prueba gratuita</h2>
-            <p class="mb-6 font-light text-teal-700 dark:text-gray-400 md:text-lg">Pruebe la plataforma GAUD-E durante 30 días. No necesita tarjeta de crédito</p>
-            <a href="#" class="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Prueba gratuita durante 30 días</a>
+    <section class="bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
+            <div class="max-w-screen-sm mx-auto text-center">
+                <h2 class="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-teal-700 dark:text-white">Comience hoy mismo su prueba gratuita</h2>
+                <p class="mb-6 font-light text-teal-700 dark:text-gray-400 md:text-lg">Pruebe la plataforma GAUD-E durante 30 días. No necesita tarjeta de crédito</p>
+                <a href="#" class="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Prueba gratuita durante 30 días</a>
+            </div>
         </div>
-    </div>
-  </section>
-  <!-- End block -->
+    </section>
+<!-- End block -->
+
+<!-- Start block SPONSORS -->
+    <section class="bg-white dark:bg-gray-900 pt-24">
+        <div class="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16 text-center">
+            <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white text-teal-700">Con el apoyo de :</h2>
+            <div class="px-12 grid grid-cols-2 gap-8 text-gray-500 sm:gap-12  dark:text-gray-400 ">
+                <a href="#" class="flex items-center lg:justify-center">
+                    <img class="w-90 rounded-t-lg hover:grayscale z-0" src="./static/images/logo-sercotec.png" alt="">
+                </a>
+                <a href="#" class="flex items-center lg:justify-center">
+                    <img class="w-90 rounded-t-lg hover:grayscale z-0" src="./static/images/logo-uc.svg" alt="">                                              
+                </a>
+                
+            </div>
+        </div>
+    </section>
+<!-- End block -->
+
+<!-- preguntas frecuentes -->
 
 
 
 
 
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+{% include './parts/footer.html' %}
 
 {% endblock %}

@@ -19,11 +19,11 @@ urlpatterns = [
     path('landscape/', views.landScape, name="landScape-view"),
     path('upscale/', views.upScale, name="upScale-view"),
 
+    path('explore-tools/', views.exploreTools, name="exploreTools-view"),
+    path('prices/', views.prices, name="prices-view"),
+
     path('login/', views.login, name="login-view"),
     path('register/', views.register, name="register-view"),
-
-    path('admin/', admin.site.urls ),
-    path('accounts/', include('django.contrib.auth.urls'))
-
+    path('logout/', exit, name="exit")
 
 ]

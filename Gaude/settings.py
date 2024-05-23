@@ -139,3 +139,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # stability
 STABILITY_KEY = env('STABILITY_KEY')
+
+# Variables de redireccion login y logiut
+
+#LOGIN_REDIRECT_URL = 'home'
+#LOGOUT_REDIRECT_URL = 'home'
+
