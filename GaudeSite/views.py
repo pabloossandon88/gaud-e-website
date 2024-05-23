@@ -3,6 +3,12 @@ from django.http import HttpResponse
 import base64
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.conf import settings
+
+import paypalrestsdk
+from django.urls import reverse
+
+from .payments import paypal_config
 
 # Import API functions
 from .APIfunctions.image_generation_api import llamar_api
@@ -518,10 +524,10 @@ def upScale(request):
     return render(request, 'GaudeSite/upscale.html')
 
 def login(request):
-    return render(request, 'GaudeSite/login.html')
+    return render(request, 'registration/login.html')
 
 def register(request):
-    return render(request, 'GaudeSite/register.html')
+    return render(request, 'registration/register.html')
 
 def imgbox():
     return render(request, 'GaudeSite/img-box.html')
@@ -531,7 +537,64 @@ def exit():
     return redirect('/')
 
 def exploreTools(request):
+    context = {
+        'URL_BASE' : settings.URL_BASE
+    }
     return render(request, 'GaudeSite/explore-tools.html')
 
 def prices(request):
     return render(request, 'GaudeSite/prices.html')
+
+
+
+def create_payment(request):
+    if request.method == "POST":
+        payment = paypalrestsdk.Payment({
+            "intent": "sale",
+            "payer": {
+                "payment_method": "paypal"
+            },
+            "redirect_urls": {
+                "return_url": request.build_absolute_uri(reverse('execute_payment')),
+                "cancel_url": request.build_absolute_uri(reverse('payment_cancelled')),
+            },
+            "transactions": [{
+                "item_list": {
+                    "items": [{
+                        "name": "Producto de ejemplo",
+                        "sku": "12345",
+                        "price": "0.01",
+                        "currency": "USD",
+                        "quantity": 1
+                    }]
+                },
+                "amount": {
+                    "total": "0.01",
+                    "currency": "USD"
+                },
+                "description": "Compra de ejemplo."
+            }]
+        })
+
+        if payment.create():
+            for link in payment.links:
+                if link.rel == "approval_url":
+                    return redirect(link.href)
+        else:
+            return render(request, 'payments/payment_error.html', {'error': payment.error})
+
+    return render(request, 'payments/payment.html')
+
+def execute_payment(request):
+    payment_id = request.GET.get('paymentId')
+    payer_id = request.GET.get('PayerID')
+
+    payment = paypalrestsdk.Payment.find(payment_id)
+
+    if payment.execute({"payer_id": payer_id}):
+        return render(request, 'payments/payment_success.html')
+    else:
+        return render(request, 'payments/payment_error.html', {'error': payment.error})
+
+def payment_cancelled(request):
+    return render(request, 'payments/payment_cancelled.html')

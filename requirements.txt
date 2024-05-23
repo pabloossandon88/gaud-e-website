@@ -3,3 +3,6 @@ djangorestframework
 gunicorn
 requests
 django-environ
+django-allauth
+oauthlib
+paypalrestsdk

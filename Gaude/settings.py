@@ -47,8 +47,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'GaudeSite'
+    'GaudeSite',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+SITE_ID = 2
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware', 
 ]
 
 ROOT_URLCONF = 'Gaude.urls'
@@ -140,8 +147,48 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # stability
 STABILITY_KEY = env('STABILITY_KEY')
 
+
+
+
 # Variables de redireccion login y logiut
 
 #LOGIN_REDIRECT_URL = 'home'
 #LOGOUT_REDIRECT_URL = 'home'
 
+
+URL_BASE = env('URL_BASE')
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_VERIFICATION = 'none' 
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+        'APP': {
+            'client_id': env('ID_CLIENT_AUTHO'),
+            'secret': env('ID_SECRET_GOOGLE'),
+            'key': ''
+        }
+    }
+}
+
+#PAYPAL
+
+PAYPAL_CLIENT_ID= env('PAYPAL_CLIENT_ID')
+PAYPAL_CLIENT_SECRET = env('PAYPAL_CLIENT_SECRET')
+PAYPAL_MODE = 'sandbox'  # or 'live' for production

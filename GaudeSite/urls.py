@@ -24,6 +24,14 @@ urlpatterns = [
 
     path('login/', views.login, name="login-view"),
     path('register/', views.register, name="register-view"),
-    path('logout/', exit, name="exit")
+    path('logout/', exit, name="exit"),
+
+    path('accounts/', include('allauth.urls')),
+
+    path('create-payment/', views.create_payment, name='create_payment'),
+    path('execute-payment/', views.execute_payment, name='execute_payment'),
+    path('payment-cancelled/', views.payment_cancelled, name='payment_cancelled'),
+
+    
 
 ]

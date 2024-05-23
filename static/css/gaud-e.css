@@ -5,6 +5,11 @@
     background: linear-gradient(90deg, rgba(16,111,100,1) 0%, rgba(27,149,149,1) 49%, rgba(9,28,67,1) 98%);
 }
 
+.bg-degrade-teal{
+    background-color: rgb(16,111,100);
+    background-color: linear-gradient(90deg, rgb(64, 226, 207) 0%, rgba(27,149,149,1) 49%, rgba(9,28,67,1) 98%) !important;
+}
+
 .bg-header{
     background: linear-gradient(90deg, rgba(16,111,100,1) 0%, rgba(27,149,149,1) 49%, rgba(9,28,67,1) 98%);
     background: rgb(9, 64, 67);

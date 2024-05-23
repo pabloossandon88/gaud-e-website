@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pago con PayPal</title>
+</head>
+<body>
+    <h1>Pagar con PayPal</h1>
+    <form method="post" action="{% url 'create_payment' %}">
+        {% csrf_token %}
+        <button type="submit">Pagar 0.01 USD</button>
+    </form>
+</body>
+</html>
