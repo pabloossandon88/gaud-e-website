@@ -67,7 +67,12 @@ seed = {
         'type' : 'range'
         }
     
-
+image = {
+                'name' : 'Imagen',
+                'slug' : 'imagen',
+                'type' : 'file'
+        }
+    
 # Function to convert bytes to base64
 def bytes_to_base64(image_bytes):
     return base64.b64encode(image_bytes).decode()
@@ -103,6 +108,7 @@ def imgGenerator(request):
 def projEval(request):
     return render(request, 'GaudeSite/projeval.html')
 
+@login_required
 def sketchImg(request):
     if request.method == 'POST':
 
@@ -121,8 +127,16 @@ def sketchImg(request):
         else:
             error_message = "No se ha subido ninguna imagen."
             return HttpResponse(error_message)
-    return render(request, 'GaudeSite/sketchimg.html')
+    
+    context = {
+        'name': 'Renderización de dibujo o imagen',
+        'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
+        'controls' : [ image ],
+        'action' : '/exterior/'
+    }        
+    return render(request, 'GaudeSite/tool.html', context)
 
+@login_required
 def removeBackground(request):
     if request.method == 'POST':
         imagen = request.FILES.get('imagen')
@@ -139,8 +153,15 @@ def removeBackground(request):
             error_message = "No se ha subido ninguna imagen."
             return HttpResponse(error_message)
         
-    return render(request, 'GaudeSite/removeback.html')
+    context = {
+        'name': 'Remove Background',
+        'description': 'Elimina el fondo de tu diseño',
+        'controls' : [ image ],
+        'action' : '/exterior/'
+    }        
+    return render(request, 'GaudeSite/tool.html', context)
 
+@login_required
 def masterPlan(request):
     styles = {
                 'name' : 'Estilo',
@@ -149,11 +170,6 @@ def masterPlan(request):
                 'items' : [
                     ['MaterPlan', 'masterplan']
                 ]
-        }
-    imagen = {
-                'name' : 'Imagen',
-                'slug' : 'imagen',
-                'type' : 'file'
         }
     
     if request.method == 'POST':
@@ -182,13 +198,27 @@ def masterPlan(request):
     context = {
         'name': 'Master Plan',
         'description': 'Genera un loteo o un condominio en 3D, a partir solamente de un esquema o fotografía. Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
-        'controls' : [ imagen, promptt, styles, negative ],
+        'controls' : [ image, promptt, styles, negative ],
         'action' : '/interior/'
     }
 
     return render(request, 'GaudeSite/tool.html', context)
 
+@login_required
 def searchReplace(request):
+
+    search = {
+            'name' : 'Menciona lo que quieres cambiar en tu imagen',
+            'slug' : 'seleccionar',
+            'type' : 'textarea'
+        }
+
+    replace = {
+            'name' : 'Menciona lo que quieres reemplazar en tu imagen',
+            'slug' : 'replace',
+            'type' : 'textarea'
+        }
+
     if request.method == 'POST':
         
         select = request.POST.get('seleccionar')
@@ -210,9 +240,23 @@ def searchReplace(request):
         else:
             error_message = "No se ha subido ninguna imagen."
             return HttpResponse(error_message)        
-    return render(request, 'GaudeSite/searchreplace.html')
+    
+    context = {
+        'name': 'Search Replace',
+        'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
+        'controls' : [ image, search, replace ],
+        'action' : '/interior/'
+    }
+    return render(request, 'GaudeSite/tool.html', context)  
 
+@login_required
 def replaceStructure(request):
+    replace = {
+            'name' : 'Menciona lo que quieres reemplazar en tu imagen',
+            'slug' : 'replace',
+            'type' : 'textarea'
+        }
+
     if request.method == 'POST':
         
         replace = request.POST.get('prompt')
@@ -232,7 +276,14 @@ def replaceStructure(request):
         else:
             error_message = "No se ha subido ninguna imagen."
             return HttpResponse(error_message)        
-    return render(request, 'GaudeSite/replacestructure.html')
+    
+    context = {
+        'name': 'Replace Structure',
+        'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
+        'controls' : [ image, replace ],
+        'action' : '/interior/'
+    }
+    return render(request, 'GaudeSite/tool.html', context)  
 
 @login_required
 def interiorImage(request):
@@ -403,7 +454,34 @@ def exteriorImage(request):
     }        
     return render(request, 'GaudeSite/tool.html', context)
 
+@login_required
 def outPaint(request):
+
+    left = {
+        'name' : 'left',
+        'slug' : 'left',
+        'type' : 'range'
+        }
+
+    right = {
+        'name' : 'right',
+        'slug' : 'right',
+        'type' : 'range'
+        }
+
+    up = {
+        'name' : 'up',
+        'slug' : 'up',
+        'type' : 'range'
+        }
+
+    down = {
+        'name' : 'down',
+        'slug' : 'down',
+        'type' : 'range'
+        }
+  
+  
     if request.method == 'POST':
         
         imagen = request.FILES.get('imagen')
@@ -431,16 +509,64 @@ def outPaint(request):
             return HttpResponse(error_message)            
         return render(request, 'GaudeSite/outpaint.html', context)        
     
-    return render(request, 'GaudeSite/outpaint.html')
+    context = {
+        'name': 'Ampliaciones',
+        'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
+        'controls' : [ image, left, right, up, down ],
+        'action' : '/outpaint/'
+    }        
+    return render(request, 'GaudeSite/tool.html', context)
 
+@login_required 
 def interiorRedecoration(request):
+    styles = {
+                'name' : 'Estilo',
+                'slug' : 'estilo',
+                'type' : 'ratio',
+                'items' : [
+                    ['Cálida y acogedora', 'warm_and_cosy'],
+                    ['Lujoso', 'luxurious'],
+                    ['Minimalista', 'minimalist'],
+                    ['Boho-chic', 'boho_chic'],
+                    ['Neoclásico', 'neoclassic'],
+                    ['Art Decó', 'art_deco'],
+                    ['Art Nouveau', 'art_nouveau'],
+                    ['IKEA', 'ikea'],
+                    ['Biophilic', 'biophilic'],
+                    ['Industrial', 'industrial'],
+                    ['Japandi', 'japandi'],
+                    ['Moderno', 'modern'],
+                    ['Contemporáneo', 'contemporary'],
+                    ['Ecléctico', 'eclectic'],
+                    ['Wabi-sabi', 'wabi_sabi'],
+                    ['Zen', 'zen'],
+                    ['Costero', 'coastral'],
+                    ['Mediterráneo', 'mediterranean'],
+                    ['Shabby Chic', 'shabby_chic'],
+                    ['Bauhaus', 'bauhaus'],
+                    ['Futurista', 'futuristic'],
+                    ['Faraónico', 'pharaonic'],
+                    ['Tropical', 'tropical'],
+                    ['Tribal', 'tribal'],
+                    ['Rústico', 'rustic'],
+                    ['Moderno de mediados de siglo', 'midcentury_modern'],
+                    ['Maximalista', 'maximalist'],
+                    ['Vintage', 'vintage'],
+                    ['Medieval', 'medieval'],
+                    ['Barroco', 'barroque'],
+                    ['Halloween', 'halloween'],
+                    ['Cyberpunk', 'cyberpunk'],
+                    ['Navideño', 'chrismas']
+                ]
+        }
+    
     if request.method == 'POST':
                
         imagen = request.FILES.get('imagen')
         prompt = request.POST.get('textoEjemplo')
         style = request.POST.get('select2')
         negative_prompt = request.POST.get('textoEjemplo2')
-        seed = request.POST.get('seed')
+        seedd = request.POST.get('seed')
         
         full_prompt = f"""
             Redesing the image in the {style} style, 
@@ -450,7 +576,7 @@ def interiorRedecoration(request):
         """
 
         if imagen:
-            resultado = llamar_api_interiorRedecoration(imagen, full_prompt, negative_prompt, seed)
+            resultado = llamar_api_interiorRedecoration(imagen, full_prompt, negative_prompt, seedd)
             imagenes_base64 = bytes_to_base64(resultado)
 
             context = {
@@ -465,9 +591,53 @@ def interiorRedecoration(request):
             error_message = "No se ha subido ninguna imagen."
             return HttpResponse(error_message)
         
-    return render(request, 'GaudeSite/tools/interiorredecoration.html')    
-       
+    context = {
+        'name': 'Interior',
+        'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
+        'controls' : [ image, promptt, styles, negative, seed ],
+        'action' : '/interior/'
+    }
+    return render(request, 'GaudeSite/tool.html', context) 
+
+@login_required    
 def landScape(request):
+    types = {
+                'name' : 'Tipo de espacio',
+                'slug' : 'type-spot',
+                'type' : 'ratio',
+                'items': [
+                    ['Patio interior', 'backyard'],
+                    ['Entrada del edificio', 'building_entrance'],
+                    ['Patio', 'courtyard'],
+                    ['Piscina', 'swimming_pool'],
+                    ['Jardín exterior', 'outdoor_garden'],
+                    ['Paisaje de club', 'club_landscape'],
+                    ['Parque', 'park'],
+                    ['Paseo peatonal', 'pedestrian_promenade']
+                ]
+        }
+    styles = {
+                'name' : 'Estilo de espacio',
+                'slug' : 'style-spot',
+                'type' : 'ratio',
+                'items': [
+                    ['Moderno', 'modern'],
+                    ['Tropical', 'tropical'],
+                    ['Contemporáneo', 'contemporary'],
+                    ['Toscano', 'tuscan'],
+                    ['Jardín japonés', 'japanese_garden'],
+                    ['Jardín inglés', 'english_garden'],
+                    ['Jardín francés', 'french_garden'],
+                    ['Rústico', 'rustic'],
+                    ['Pradera', 'prairie'],
+                    ['Boscoso', 'woodland'],
+                    ['Español', 'spanish'],
+                    ['Costero', 'coastal'],
+                    ['Minimalista', 'minimalist'],
+                    ['Cálido y acogedor', 'warm_and_cosy']
+                ]
+        }    
+
     if request.method == 'POST':
         estilo_espacio = request.POST.get('select3')
         imagen = request.FILES.get('imagen')
@@ -500,17 +670,24 @@ def landScape(request):
             error_message = "No se ha subido ninguna imagen."
             return HttpResponse(error_message)
         
-    return render(request, 'GaudeSite/landscape.html')
+    context = {
+        'name': 'Paisajismo',
+        'description': 'Genera un proyecto de paisajismo, a partir solamente de un esquema o fotografía',
+        'controls' : [ image, promptt, types, styles, negative ],
+        'action' : '/landscape/'
+    }
+    return render(request, 'GaudeSite/tool.html', context)
 
+@login_required 
 def upScale(request):
     if request.method == 'POST':
         imagen = request.FILES.get('imagen')
         negative_prompt = request.POST.get('textoEjemplo2')
         prompt = request.POST.get('textoEjemplo')
-        seed = request.POST.get('seed')
+        seedd = request.POST.get('seed')
         
         if imagen:
-            resultado = llamar_api_upscale(imagen, prompt, negative_prompt, seed)
+            resultado = llamar_api_upscale(imagen, prompt, negative_prompt, seedd)
             imagenes_base64 = bytes_to_base64(resultado)
             context = {
                 'imagenes_base64': imagenes_base64,
@@ -521,7 +698,13 @@ def upScale(request):
             error_message = "No se ha subido ninguna imagen."
             return HttpResponse(error_message)
         
-    return render(request, 'GaudeSite/upscale.html')
+    context = {
+        'name': 'Upscale',
+        'description': 'Cree una versión de mayor resolución de una imagen de entrada.',
+        'controls' : [ image, promptt, negative, seed ],
+        'action' : '/landscape/'
+    }
+    return render(request, 'GaudeSite/tool.html', context)
 
 def login(request):
     return render(request, 'registration/login.html')
@@ -544,8 +727,6 @@ def exploreTools(request):
 
 def prices(request):
     return render(request, 'GaudeSite/prices.html')
-
-
 
 def create_payment(request):
     if request.method == "POST":

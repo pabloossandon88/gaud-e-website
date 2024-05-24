@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Error en el Pago</title>
-</head>
-<body>
+{% extends 'GaudeSite/base.html' %}
+{% load static %}
+
+{% block content%}
+
+<br>
+<br>
+<br>
+<br>
+
     <h1>Hubo un error en el pago.</h1>
     <p>{{ error.message }}</p>
-</body>
-</html>
+
+<br>
+<br>
+<br>
+<br>    
+{% include './../parts/footer.html' %}
+
+{% endblock %}

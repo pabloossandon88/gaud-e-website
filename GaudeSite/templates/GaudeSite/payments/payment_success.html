@@ -1,9 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Pago Exitoso</title>
-</head>
-<body>
+{% extends 'GaudeSite/base.html' %}
+{% load static %}
+
+{% block content%}
+
+<br>
+<br>
+<br>
+<br>
     <h1>¡Pago realizado con éxito!</h1>
-</body>
-</html>
+    <h2>Los creditos han sido cargados a tu cuenta </h2>
+
+<br>
+<br>
+<br>
+<br>    
+{% include './../parts/footer.html' %}
+
+{% endblock %}
