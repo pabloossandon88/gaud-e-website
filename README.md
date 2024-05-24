@@ -33,7 +33,12 @@ Para ejecutar la página de Gaud-E localmente, sigue estos pasos:
      $ pip install -r requirements.txt
      ```
 
-4. **Ejecutar el Servidor Local:**
+4. **Configurar ENV:**
+   - Clonar archivo Gaude/.env-example y renombrarlo como .env:
+   - Agregar datos correspondientes según configuración:
+    
+
+5. **Ejecutar el Servidor Local:**
    - Una vez instaladas las dependencias, ejecuta el servidor con el siguiente comando:
      ```shell
      $ python manage.py runserver

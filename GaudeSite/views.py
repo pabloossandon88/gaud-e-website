@@ -285,7 +285,6 @@ def replaceStructure(request):
     }
     return render(request, 'GaudeSite/tool.html', context)  
 
-@login_required
 def interiorImage(request):
 
     living_room = {

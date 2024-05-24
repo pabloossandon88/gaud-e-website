@@ -12,6 +12,18 @@
                 <p  class="mb-2 text-xs font-medium text-teal-700 dark:text-white">{{ description }}</p>
                 {% csrf_token %}
 
+                {% if request.user.is_authenticated %}
+                {% else %}
+
+                <div class="bg-amber-100 my-2 p-5 flex justify-center flex-col">
+                    <p  class="mb-2 text-xs font-medium text-red-500 dark:text-white">No haz iniciado sesión</p>
+                    <br>
+                    <i class="fa-brands fa-google text-red-500 font-xl"></i>
+                </div>
+
+                    
+                {% endif %}
+
                 <!--
                 <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="select1">
@@ -92,10 +104,20 @@
             </div>
 
             <div class="absolute bottom-0 left-0 w-full">
-              <button class="bg-teal-700 py-2 text-white font-bold relative" type="submit" style="width: 33.3vw;">
-                <span>Generar</span>
-                <span class="valor absolute bottom-2 right-3 text-sm text-teal-400">10<i class="fas fa-coins  text-sm pl-2"></i></span>
-              </button>
+
+                {% if request.user.is_authenticated %}
+                    <button class="bg-teal-700 py-2 text-white font-bold relative" type="submit" style="width: 33.3vw;">
+                        <span>Generar</span>
+                        <span class="valor absolute bottom-2 right-3 text-sm text-teal-400">10<i class="fas fa-coins  text-sm pl-2"></i></span>
+                    </button>
+                
+                {% else %}
+                    <button  class="bg-teal-700 py-2 text-white font-bold relative" role="link" onclick="window.location='http://es.stackoverflow.com'" style="width: 33.3vw;">
+                        <span>Ingresar</span>
+                        <span class="valor absolute bottom-2 right-3 text-sm text-teal-400">10<i class="fas fa-coins  text-sm pl-2"></i></span>
+                    </button>
+                {% endif %}
+              
                 
             </div>
             
