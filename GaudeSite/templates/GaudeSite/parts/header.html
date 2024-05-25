@@ -179,7 +179,7 @@
 
                     {% if request.user.is_authenticated %}
 
-                      <a href="{% url 'login-view' %}" class="text-white focus:ring-4 focus:ring-purple-300 font-normal rounded-lg text-sm py-1  sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800 flex flex-col">
+                      <a href="#" class="text-white focus:ring-4 focus:ring-purple-300 font-normal rounded-lg text-sm py-1  sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800 flex flex-col">
                         <span class="valor text-sm text-gray-300">150<i class="fas fa-coins  text-sm pl-2"></i></span>
                         <span class="valor text-[9px] text-gray-300 text-center h-0">creditos</span>
                       </a>
@@ -193,8 +193,10 @@
                               <span>{{ user.username | upper}}</span>
                             </li>
                             <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">
-                              <a href="{% url 'exit' %}" class="text-white focus:ring-4 focus:ring-purple-300 font-normal rounded-lg text-sm py-1  sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800 ">
-                                Cerrar sesion</a>
+                              <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">Cerrar sesion</button>
+                              </form>
                             </li>
                         </ul>
                       </div>
@@ -204,7 +206,7 @@
                       <li>
                           <a href="{% url 'prices-view' %}" class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 text-white">Precios</a>
                       </li>
-                      <a href="{% url 'login-view' %}" class="text-white btn-pay focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1  sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800 ">Ingresar</a>
+                      <a href="{% url 'login' %}" class="text-white btn-pay focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1  sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800 ">Ingresar</a>
                 
                       <a href="{% url 'register-view' %}" class="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-1  sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800 ">Registrarse</a>
                     
