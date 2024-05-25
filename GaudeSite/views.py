@@ -366,17 +366,22 @@ def interiorImage(request):
         aspect_ratio = request.POST.get('select3')
         negative_prompt = request.POST.get('negative_prompt')
         model = request.POST.get('select6')
-        final_prompt= "Create a stunning architectural image featuring a " + room + " in" + style + " style, capturing its essence and ambiance in vivid detail. The image must have " + prompt
-       
+        #final_prompt= "Create a stunning architectural image featuring a " + room + " in" + style + " style, capturing its essence and ambiance in vivid detail. The image must have " + prompt
+        final_prompt= "Create a stunning architectural an image from the exterior featuring a"
+        
         resultado = llamar_api_interior(final_prompt, aspect_ratio, negative_prompt, model)
         imagenes_base64 = bytes_to_base64(resultado)
 
         context = {
+            'name': 'Interior',
+            'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
+            'controls' : [ living_room, styles, promptt, negative, models, aspectratio  ],
+            'action' : '/interior/',
             'imagenes_base64': imagenes_base64,
             'prompt': prompt,
         }
         
-        return render(request, 'GaudeSite/interior.html', context)                
+        return render(request, 'GaudeSite/tool.html', context)                
     
     context = {
         'name': 'Interior',
@@ -433,17 +438,22 @@ def exteriorImage(request):
         negative_prompt = request.POST.get('negative_prompt')
         model = request.POST.get('select6')
         
-        final_prompt= "Create a stunning architectural an image from the exterior featuring a " + construction + " in" + style + " style, capturing its essence and ambiance in vivid detail. The construction must have " + prompt       
+        #final_prompt= "Create a stunning architectural an image from the exterior featuring a " + construction + " in" + style + " style, capturing its essence and ambiance in vivid detail. The construction must have " + prompt       
+        final_prompt= "Create a stunning architectural an image from the exterior featuring a"
         resultado = llamar_api_exterior(final_prompt, aspect_ratio, negative_prompt, model)        
         imagenes_base64 = bytes_to_base64(resultado)
         d = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         context = {
+            'name': 'Exterior',
+            'description': 'Sube un boceto o modelo para rediseñar tu espacio exterior con más de 20 estilos únicos.',
+            'controls' : [ types_construction, styles, promptt, negative, models, aspectratio  ],
+            'action' : '/exterior/',
             'imagenes_base64': imagenes_base64,
             'prompt': prompt
         }
 
-        return render(request, 'GaudeSite/exterior.html', context) 
+        return render(request, 'GaudeSite/tool.html', context) 
 
     context = {
         'name': 'Exterior',

@@ -1,8 +1,8 @@
 
               
-    <div class="swiper w-full h-full flex justify-center items-center">
+    <div class="w-full h-full flex justify-center items-center">
         {% if imagenes_base64 %}
-            <img class="preview-image" src="data:image/png;base64,{{ imagenes_base64 }}" alt="Generated Image"/>
+            <img class="preview-image max-h-[95vh] pt-[10vh]" src="data:image/png;base64,{{ imagenes_base64 }}" alt="Generated Image"/>
         {% else %}
             <i class="fa-solid fa-image text-6xl text-teal-700 opacity-40"></i>
         {% endif %}

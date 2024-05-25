@@ -1,5 +1,6 @@
 import requests
 from django.conf import settings
+import sys  # Importa el módulo sys
 
 def send_generation_request(
     host,
@@ -9,6 +10,7 @@ def send_generation_request(
         "Accept": "image/*",
         "Authorization": f"Bearer {settings.STABILITY_KEY}"
     }
+
 
     # Encode parameters
     files = {}
@@ -30,7 +32,10 @@ def send_generation_request(
         data=params
     )
     if not response.ok:
+        
         raise Exception(f"HTTP {response.status_code}: {response.text}")
+
+        
 
     return response
 
