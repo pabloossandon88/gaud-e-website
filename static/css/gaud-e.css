@@ -89,3 +89,9 @@ video{
 .overflow-y-scroll{
     scrollbar-color: #cefbf1;
 }
+
+
+.btn-apply {
+    @apply px-4 py-2 bg-blue-500 text-white rounded border border-red-500;
+}
+
