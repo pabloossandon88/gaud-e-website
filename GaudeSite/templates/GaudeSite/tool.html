@@ -6,7 +6,7 @@
 <main>
   <div class="grid grid-cols-3 py-5 h-screen">
     <div class="pl-2 pr-1 pt-24 border-r border-gray-200">
-        <form action="{{ action }}" method="POST">
+        <form id="formgenerate" action="{{ action }}" method="POST">
             <div class="max-h-[70vh] overflow-y-scroll">
                 <h1 class="mb-2 text-xl text-teal-700 dark:text-white font-extrabold">{{ name }}</h1>
                 <p  class="mb-2 text-xs font-medium text-teal-700 dark:text-white">{{ description }}</p>
@@ -109,7 +109,7 @@
             <div class="absolute bottom-0 left-0 w-full">
 
                 {% if request.user.is_authenticated %}
-                    <button class="bg-teal-700 py-2 text-white font-bold relative" type="submit" style="width: 33.3vw;">
+                    <button class="bg-teal-700 py-2 text-white font-bold relative" style="width: 33.3vw;">
                         <span>Generar</span>
                         <span class="valor absolute bottom-2 right-3 text-sm text-teal-400">10<i class="fas fa-coins  text-sm pl-2"></i></span>
                     </button>
@@ -133,18 +133,14 @@
     
     <div class="grid grid-cols-subgrid gap-1 col-span-2">
       <div class="">
+
+        
+
         {% include './parts/img-box.html' %}
       </div>
     </div>
   </div>
 </main>
 
-
-<script>
-  document.getElementById('seed').addEventListener('input', function() {
-      document.getElementById('seedValue').innerText = this.value;
-      document.getElementById('seedHidden').value = this.value;
-  });
-</script>
 
 {% endblock %}

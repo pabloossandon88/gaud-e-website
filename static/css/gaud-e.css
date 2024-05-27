@@ -89,9 +89,15 @@ video{
 .overflow-y-scroll{
     scrollbar-color: #cefbf1;
 }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+html {
+    font-family: "Inter", sans-serif !important ;
+}
 
 
 .btn-apply {
     @apply px-4 py-2 bg-blue-500 text-white rounded border border-red-500;
 }
+
+
 

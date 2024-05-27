@@ -357,25 +357,32 @@ def interiorImage(request):
                     ['Navideño', 'chrismas']
                 ]
         }
-    
+    controls = [ living_room, styles, promptt, negative, models, aspectratio  ],
+        
     if request.method == 'POST':
         
+
+
         prompt = request.POST.get('prompt')
-        room = request.POST.get('select1')
-        style = request.POST.get('select2')
-        aspect_ratio = request.POST.get('select3')
-        negative_prompt = request.POST.get('negative_prompt')
-        model = request.POST.get('select6')
-        #final_prompt= "Create a stunning architectural image featuring a " + room + " in" + style + " style, capturing its essence and ambiance in vivid detail. The image must have " + prompt
-        final_prompt= "Create a stunning architectural an image from the exterior featuring a " + prompt
+        room = request.POST.get('living_room')
+        style = request.POST.get('estilo')
+        aspect_ratio = request.POST.get('aspectratio')
+        negative_prompt = request.POST.get('negative')
+        model = request.POST.get('model')
         
+        #final_prompt= "Create a stunning architectural image featuring a " + room + " in" + style + " style, capturing its essence and ambiance in vivid detail. The image must have " + prompt
+        #final_prompt= "Create a stunning architectural an image from the exterior featuring a " + prompt
+        
+        final_prompt= "Create a stunning architectural image featuring a " + room + " in" + style + " style, capturing its essence and ambiance in vivid detail. The image must have " + prompt
+        
+
         resultado = llamar_api_interior(final_prompt, aspect_ratio, negative_prompt, model)
         imagenes_base64 = bytes_to_base64(resultado)
 
         context = {
             'name': 'Interior',
             'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
-            'controls' : [ living_room, styles, promptt, negative, models, aspectratio  ],
+            'controls' : controls,
             'action' : '/interior/',
             'imagenes_base64': imagenes_base64,
             'prompt': prompt,
@@ -386,7 +393,7 @@ def interiorImage(request):
     context = {
         'name': 'Interior',
         'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
-        'controls' : [ living_room, styles, promptt, negative, models, aspectratio  ],
+        'controls' : controls,
         'action' : '/interior/'
     }
     return render(request, 'GaudeSite/tool.html', context)  
