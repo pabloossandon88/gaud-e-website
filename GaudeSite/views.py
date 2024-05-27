@@ -367,7 +367,7 @@ def interiorImage(request):
         negative_prompt = request.POST.get('negative_prompt')
         model = request.POST.get('select6')
         #final_prompt= "Create a stunning architectural image featuring a " + room + " in" + style + " style, capturing its essence and ambiance in vivid detail. The image must have " + prompt
-        final_prompt= "Create a stunning architectural an image from the exterior featuring a"
+        final_prompt= "Create a stunning architectural an image from the exterior featuring a " + prompt
         
         resultado = llamar_api_interior(final_prompt, aspect_ratio, negative_prompt, model)
         imagenes_base64 = bytes_to_base64(resultado)
