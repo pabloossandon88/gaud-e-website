@@ -33,7 +33,7 @@
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
                 </div>
                 -->
-
+                
                 {% for control in controls %} 
                     
                     {% if control.type == 'ratio' %}
@@ -47,7 +47,12 @@
                                         <input type="radio" id="{{type.1}}" name="{{control.slug}}" value="{{type.1}}" class="hidden peer">
                                         <label for="{{type.1}}" class="inline-flex items-center justify-between  p-1 text-gray-400 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                                             <div class="block">
-                                                <div class="w-full text-xs font-semibold">{{type.0}}</div>
+                                                <div class="w-full text-xs font-semibold">
+                                                    {{type.0}}
+                                                    <!--
+                                                    <i id="gaude-img-default" class="fa-solid fa-image text-sm text-teal-700 opacity-40"></i>
+                                                    -->
+                                                </div>
                                             </div>
                                         </label>
                                     </li>
@@ -62,7 +67,7 @@
                             <div class="relative w-full">
                                 <textarea
                                     id="{{control.slug}}"
-                                    value="{{control.slug}}"
+                                    name="{{control.slug}}"
                                     class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-200 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
                                     placeholder=" "></textarea>
                                 <label
@@ -76,22 +81,27 @@
                         
                         <div class="mb-4 border border-gray-200 p-3">
                             <label for="default-range" class="block mb-2 text-sm font-medium text-teal-700 dark:text-white">{{control.name}}</label>
-                            <input id="default-range" type="range" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+                            <input id="{{control.slug}}" name="{{control.slug}}" type="range" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
                         </div>
 
                     {% elif control.type == 'file' %}
+                        
                         <div class="mb-4 border border-gray-200 p-3">
                             <h3 class="mb-2 text-sm font-medium text-teal-700 dark:text-white">{{control.name}}</h3>
                             <input
                                 class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-secondary-500 bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base text-teal-700 font-normal text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] file:text-surface focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none dark:border-white/70 dark:text-white  file:dark:text-white"
                                 type="file"
-                                id="formFile" />
+                                id="{{control.slug}}"
+                                name="{{control.slug}}" />
                         </div>
                     
                     {% elif control.type == 'text' %}
+                        
                         <div class="w-100">
                             <div class="relative w-full">
                                 <textarea
+                                    id="{{control.slug}}"
+                                    name="{{control.slug}}"
                                     class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-200 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
                                     placeholder=" "></textarea>
                                 <label

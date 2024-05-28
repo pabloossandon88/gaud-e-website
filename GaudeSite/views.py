@@ -28,13 +28,11 @@ promptt = {
             'slug' : 'prompt',
             'type' : 'textarea'
     }
-
 negative = {
             'name' : 'Negative Prompt',
             'slug' : 'negative',
             'type' : 'textarea'
     }
-
 models = {
         'name' : 'Modelo',
         'slug' : 'model',
@@ -44,7 +42,6 @@ models = {
             ['SD3-TURBO', 'sd3-turbo']
         ]
     }
-    
 aspectratio = { 
         'name' : 'Aspect Ratio',
         'slug' : 'aspectratio',
@@ -65,8 +62,7 @@ seed = {
         'name' : 'Seed',
         'slug' : 'seed',
         'type' : 'range'
-        }
-    
+        }   
 image = {
                 'name' : 'Imagen',
                 'slug' : 'imagen',
@@ -118,11 +114,17 @@ def sketchImg(request):
         if imagen:
             resultado = llamar_api_boceto(imagen, detalles)
             imagenes_base64 = bytes_to_base64(resultado)
-            context = {'imagenes_base64': imagenes_base64,
+            context = {
+                'name': 'Renderización de dibujo o imagen',
+                'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
+                'controls' : [ image ],
+                'action' : '/sketchimg/',
+                
+                'imagenes_base64': imagenes_base64,
                        'detalles': detalles
             }
         
-            return render(request, 'GaudeSite/sketchimg.html', context)
+            return render(request, 'GaudeSite/tool.html', context)
         
         else:
             error_message = "No se ha subido ninguna imagen."
@@ -132,7 +134,7 @@ def sketchImg(request):
         'name': 'Renderización de dibujo o imagen',
         'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
         'controls' : [ image ],
-        'action' : '/exterior/'
+        'action' : '/sketchimg/'
     }        
     return render(request, 'GaudeSite/tool.html', context)
 
@@ -157,11 +159,10 @@ def removeBackground(request):
         'name': 'Remove Background',
         'description': 'Elimina el fondo de tu diseño',
         'controls' : [ image ],
-        'action' : '/exterior/'
+        'action' : '/removebackground/'
     }        
     return render(request, 'GaudeSite/tool.html', context)
 
-@login_required
 def masterPlan(request):
     styles = {
                 'name' : 'Estilo',
@@ -199,7 +200,7 @@ def masterPlan(request):
         'name': 'Master Plan',
         'description': 'Genera un loteo o un condominio en 3D, a partir solamente de un esquema o fotografía. Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
         'controls' : [ image, promptt, styles, negative ],
-        'action' : '/interior/'
+        'action' : '/masterplan/'
     }
 
     return render(request, 'GaudeSite/tool.html', context)
@@ -245,7 +246,7 @@ def searchReplace(request):
         'name': 'Search Replace',
         'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
         'controls' : [ image, search, replace ],
-        'action' : '/interior/'
+        'action' : '/searchreplace/'
     }
     return render(request, 'GaudeSite/tool.html', context)  
 
@@ -281,7 +282,7 @@ def replaceStructure(request):
         'name': 'Replace Structure',
         'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
         'controls' : [ image, replace ],
-        'action' : '/interior/'
+        'action' : '/replacestructure/'
     }
     return render(request, 'GaudeSite/tool.html', context)  
 
@@ -357,7 +358,7 @@ def interiorImage(request):
                     ['Navideño', 'chrismas']
                 ]
         }
-    controls = [ living_room, styles, promptt, negative, models, aspectratio  ],
+    controls = [ living_room, styles, promptt, negative, models, aspectratio  ]
         
     if request.method == 'POST':
         
@@ -398,7 +399,6 @@ def interiorImage(request):
     }
     return render(request, 'GaudeSite/tool.html', context)  
 
-@login_required
 def exteriorImage(request):
     types_construction = {
             'name' : 'Tipo de construcción',
@@ -435,7 +435,7 @@ def exteriorImage(request):
                     ['illustration', 'illustration']
                 ]
         }
-    
+    controls = [ types_construction, styles, promptt, negative, models, aspectratio  ]
     if request.method == 'POST':
         
         prompt = request.POST.get('prompt')
@@ -465,7 +465,7 @@ def exteriorImage(request):
     context = {
         'name': 'Exterior',
         'description': 'Sube un boceto o modelo para rediseñar tu espacio exterior con más de 20 estilos únicos.',
-        'controls' : [ types_construction, styles, promptt, negative, models, aspectratio  ],
+        'controls' : controls,
         'action' : '/exterior/'
     }        
     return render(request, 'GaudeSite/tool.html', context)
@@ -611,7 +611,7 @@ def interiorRedecoration(request):
         'name': 'Interior',
         'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
         'controls' : [ image, promptt, styles, negative, seed ],
-        'action' : '/interior/'
+        'action' : '/interiorredecoration/'
     }
     return render(request, 'GaudeSite/tool.html', context) 
 
@@ -718,7 +718,7 @@ def upScale(request):
         'name': 'Upscale',
         'description': 'Cree una versión de mayor resolución de una imagen de entrada.',
         'controls' : [ image, promptt, negative, seed ],
-        'action' : '/landscape/'
+        'action' : '/upscale/'
     }
     return render(request, 'GaudeSite/tool.html', context)
 
