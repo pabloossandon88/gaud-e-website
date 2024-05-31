@@ -4,10 +4,10 @@
 {% block content%}
 
 <main>
-  <div class="grid grid-cols-1 md:grid-cols-3 py-5 h-screen">
+  <div class="grid grid-cols-1 md:grid-cols-3 py-5 md:h-screen">
     <div class="pl-2 pr-1 pt-24 border-r border-gray-200">
         <form id="formgenerate" action="{{ action }}" method="POST">
-            <div class="max-h-[70vh] overflow-y-scroll">
+            <div class="md:max-h-[70vh] md:overflow-y-scroll">
                 <h1 class="mb-2 text-xl text-teal-700 dark:text-white font-extrabold">{{ name }}</h1>
                 <p  class="mb-2 text-xs font-medium text-teal-700 dark:text-white">{{ description }}</p>
                 {% csrf_token %}
@@ -116,10 +116,10 @@
                 {% endfor %} 
             </div>
 
-            <div class="absolute bottom-0 left-0 w-full">
+            <div class="md:absolute bottom-0 left-0 w-full">
 
                 {% if request.user.is_authenticated %}
-                    <button id="buttongenerate" class="bg-teal-700 py-2 text-white font-bold relative w-[100vw] md:w-[33.3vw]">
+                    <button id="buttongenerate" class="bg-teal-700 py-2 text-white font-bold relative w-[95vw] md:w-[33.3vw]">
                         <span>Generar</span>
                         <span class="valor absolute bottom-2 right-3 text-sm text-teal-400">10<i class="fas fa-coins  text-sm pl-2"></i></span>
                     </button>
@@ -142,7 +142,7 @@
     </div>
     
     <div class="grid grid-cols-subgrid gap-1 col-span-2">
-      <div class="">
+      <div class="py-[20vh] md:py-0">
 
         
 
