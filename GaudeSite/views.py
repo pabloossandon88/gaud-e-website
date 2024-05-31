@@ -23,6 +23,8 @@ from .APIfunctions.outpaint             import llamar_api_outpaint
 from .APIfunctions.interiorRedecoration import llamar_api_interiorRedecoration
 from .APIfunctions.upscale              import llamar_api_upscale
 
+from .APIfunctions.dynamic_request      import call_api
+
 promptt = {
             'name' : 'Añade detalles (Prompt)',
             'slug' : 'prompt',
@@ -358,24 +360,33 @@ def interiorImage(request):
                     ['Navideño', 'chrismas']
                 ]
         }
-    controls = [ living_room, styles, promptt, negative, models, aspectratio  ]
+    
+    
         
     if request.method == 'POST':
         
-
-
         prompt = request.POST.get('prompt')
         room = request.POST.get('living_room')
         style = request.POST.get('estilo')
         aspect_ratio = request.POST.get('aspectratio')
         negative_prompt = request.POST.get('negative')
         model = request.POST.get('model')
+
+        if prompt :
+            promptt['value'] = prompt
+
+        if room :
+            living_room['value'] = room
+
+        if style :
+            styles['value'] = style
         
-        #final_prompt= "Create a stunning architectural image featuring a " + room + " in" + style + " style, capturing its essence and ambiance in vivid detail. The image must have " + prompt
-        #final_prompt= "Create a stunning architectural an image from the exterior featuring a " + prompt
-        
+
+
         final_prompt= "Create a stunning architectural image featuring a " + room + " in" + style + " style, capturing its essence and ambiance in vivid detail. The image must have " + prompt
-        
+
+        # 'aspect_ratio' : request.POST.get('aspectratio'),
+        # 'model' : request.POST.get('model')
 
         resultado = llamar_api_interior(final_prompt, aspect_ratio, negative_prompt, model)
         imagenes_base64 = bytes_to_base64(resultado)
@@ -383,18 +394,19 @@ def interiorImage(request):
         context = {
             'name': 'Interior',
             'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
-            'controls' : controls,
+            'controls' : [ living_room, styles, promptt, negative, models, aspectratio  ],
             'action' : '/interior/',
             'imagenes_base64': imagenes_base64,
             'prompt': prompt,
         }
-        
-        return render(request, 'GaudeSite/tool.html', context)                
-    
+
+        return render(request, 'GaudeSite/tool.html', context)   
+
+
     context = {
         'name': 'Interior',
         'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
-        'controls' : controls,
+        'controls' : [ living_room, styles, promptt, negative, models, aspectratio  ] ,
         'action' : '/interior/'
     }
     return render(request, 'GaudeSite/tool.html', context)  
