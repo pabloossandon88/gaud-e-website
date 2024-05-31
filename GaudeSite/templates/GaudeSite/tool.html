@@ -4,7 +4,7 @@
 {% block content%}
 
 <main>
-  <div class="grid grid-cols-3 py-5 h-screen">
+  <div class="grid grid-cols-1 md:grid-cols-3 py-5 h-screen">
     <div class="pl-2 pr-1 pt-24 border-r border-gray-200">
         <form id="formgenerate" action="{{ action }}" method="POST">
             <div class="max-h-[70vh] overflow-y-scroll">
@@ -119,7 +119,7 @@
             <div class="absolute bottom-0 left-0 w-full">
 
                 {% if request.user.is_authenticated %}
-                    <button id="buttongenerate" class="bg-teal-700 py-2 text-white font-bold relative" style="width: 33.3vw;">
+                    <button id="buttongenerate" class="bg-teal-700 py-2 text-white font-bold relative w-[100vw] md:w-[33.3vw]">
                         <span>Generar</span>
                         <span class="valor absolute bottom-2 right-3 text-sm text-teal-400">10<i class="fas fa-coins  text-sm pl-2"></i></span>
                     </button>
