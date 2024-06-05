@@ -44,4 +44,13 @@ Para ejecutar la página de Gaud-E localmente, sigue estos pasos:
      $ python manage.py runserver
      ```
 
+5. **Configuración logeo de usuarios Google :**
+   - Se necesita crear la aplicación en Google Cloud Console y configurar las Key secretas en el archivo .env, en primera instancia me dio error pero coon estas lineas logre solucionar:
+     ```shell
+     $ pip install django-allauth[google]
+     $ pip install "django-allauth[socialaccount]"
+     ```
+
+     
+
 ¡Listo! Ahora puedes acceder a la página Gaud-E localmente desde tu navegador.
