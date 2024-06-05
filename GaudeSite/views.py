@@ -28,7 +28,8 @@ from .APIfunctions.dynamic_request      import call_api
 promptt = {
             'name' : 'Añade detalles (Prompt)',
             'slug' : 'prompt',
-            'type' : 'textarea'
+            'type' : 'textarea',
+            'value' : ''
     }
 negative = {
             'name' : 'Negative Prompt',
@@ -359,9 +360,7 @@ def interiorImage(request):
                     ['Cyberpunk', 'cyberpunk'],
                     ['Navideño', 'chrismas']
                 ]
-        }
-    
-    
+        }  
         
     if request.method == 'POST':
         
@@ -381,14 +380,22 @@ def interiorImage(request):
         if style :
             styles['value'] = style
         
-
+        if negative_prompt : 
+            negative['value'] = negative_prompt
+        
+        if aspect_ratio :
+            aspectratio['value'] = aspect_ratio
+        
+        if model :
+            models['value'] = model
+        
 
         final_prompt= "Create a stunning architectural image featuring a " + room + " in" + style + " style, capturing its essence and ambiance in vivid detail. The image must have " + prompt
 
         # 'aspect_ratio' : request.POST.get('aspectratio'),
         # 'model' : request.POST.get('model')
 
-        resultado = llamar_api_interior(final_prompt, aspect_ratio, negative_prompt, model)
+        resultado = llamar_api_interior(final_prompt, aspect_ratio, negative, model)
         imagenes_base64 = bytes_to_base64(resultado)
 
         context = {
