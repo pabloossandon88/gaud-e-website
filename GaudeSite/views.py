@@ -25,6 +25,8 @@ from .APIfunctions.upscale              import llamar_api_upscale
 
 from .APIfunctions.dynamic_request      import call_api
 
+from .models import UserProfile
+
 promptt = {
             'name' : 'Añade detalles (Prompt)',
             'slug' : 'prompt',
@@ -795,6 +797,12 @@ def create_payment(request):
         if payment.create():
             for link in payment.links:
                 if link.rel == "approval_url":
+
+                    amount = 1500
+                    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+                    user_profile.credits += amount
+                    user_profile.save()
+                    
                     return redirect(link.href)
         else:
             return render(request, 'GaudeSite/payments/payment_error.html', {'error': payment.error})
@@ -814,3 +822,23 @@ def execute_payment(request):
 
 def payment_cancelled(request):
     return render(request, 'GaudeSite/payments/payment_cancelled.html')
+
+
+
+@login_required
+def add_credits_view(request):
+    if request.method == 'POST':
+        amount = float(request.POST.get('amount'))
+        user_profile = request.user.userprofile
+        user_profile.credits += amount
+        user_profile.save()
+        return redirect('some_view')
+
+@login_required
+def deduct_credits_view(request):
+    if request.method == 'POST':
+        amount = float(request.POST.get('amount'))
+        user_profile = request.user.userprofile
+        user_profile.credits -= amount
+        user_profile.save()
+        return redirect('some_view')
