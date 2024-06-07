@@ -1,11 +1,12 @@
 import requests
 from django.conf import settings
+from django.contrib.auth import get_user_model
 
 
-def send_generation_request(
-    host,
-    params,
-):
+from GaudeSite.models import UserProfile
+
+
+def send_generation_request( host, params ):
     headers = {
         "Accept": "image/*",
         "Authorization": f"Bearer {settings.STABILITY_KEY}"
@@ -35,22 +36,26 @@ def send_generation_request(
 
     return response
 
-def call_api( prompt, aspect_ratio, negative_prompt, model):
+def call_api(parameters):
     seed = 0 
     output_format = "jpeg" 
     
     host = f"https://api.stability.ai/v2beta/stable-image/generate/sd3"
 
-    
     params = {
-        "prompt" : prompt,
-        "negative_prompt" : negative_prompt,
-        "aspect_ratio" : aspect_ratio,
+        "prompt" : parameters['final_prompt'],
+        "negative_prompt" : parameters['negative'],
+        "aspect_ratio" : parameters['aspect_ratio'],
         "seed" : seed,
         "output_format" : output_format,
-        "model" : model,
+        "model" : parameters['model'],
         "mode" : "text-to-image"
     }
+
+    User = get_user_model()
+    usuario = User.objects.first()
+    
+
     response = send_generation_request(host, params)
     
     output_image = response.content
@@ -60,7 +65,17 @@ def call_api( prompt, aspect_ratio, negative_prompt, model):
     if response.status_code == 200:
         # Convertimos la respuesta a JSON y la retornamos
         #return response.json()
+        
+        user_profile, created = UserProfile.objects.get_or_create(user=usuario)
+        user_profile.credits -= 10
+        user_profile.save()
+
         return output_image
     else:
         # Manejo de errores o respuesta no exitosa
         return {"error": "Hubo un problema con la solicitud a la API"}
+
+def validateRequestPost(name, validate):
+    if prompt :
+            promptt['value'] = prompt
+    return

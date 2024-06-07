@@ -15,7 +15,7 @@ from .APIfunctions.image_generation_api import llamar_api
 from .APIfunctions.remove_back          import llamar_api_remove_back
 from .APIfunctions.sketch_image         import llamar_api_boceto
 from .APIfunctions.master_plan          import llamar_api_masterplan
-from .APIfunctions.interior             import llamar_api_interior
+#from .APIfunctions.interior             import llamar_api_interior
 from .APIfunctions.exterior             import llamar_api_exterior
 from .APIfunctions.searchReplace        import llamar_api_replace
 from .APIfunctions.replaceStructure     import llamar_api_replace_structure
@@ -24,6 +24,7 @@ from .APIfunctions.interiorRedecoration import llamar_api_interiorRedecoration
 from .APIfunctions.upscale              import llamar_api_upscale
 
 from .APIfunctions.dynamic_request      import call_api
+from .APIfunctions.dynamic_request      import validateRequestPost
 
 from .models import UserProfile
 
@@ -363,61 +364,38 @@ def interiorImage(request):
                     ['Navideño', 'chrismas']
                 ]
         }  
-        
-    if request.method == 'POST':
-        
-        prompt = request.POST.get('prompt')
-        room = request.POST.get('living_room')
-        style = request.POST.get('estilo')
-        aspect_ratio = request.POST.get('aspectratio')
-        negative_prompt = request.POST.get('negative')
-        model = request.POST.get('model')
-
-        if prompt :
-            promptt['value'] = prompt
-
-        if room :
-            living_room['value'] = room
-
-        if style :
-            styles['value'] = style
-        
-        if negative_prompt : 
-            negative['value'] = negative_prompt
-        
-        if aspect_ratio :
-            aspectratio['value'] = aspect_ratio
-        
-        if model :
-            models['value'] = model
-        
-
-        final_prompt= "Create a stunning architectural image featuring a " + room + " in" + style + " style, capturing its essence and ambiance in vivid detail. The image must have " + prompt
-
-        # 'aspect_ratio' : request.POST.get('aspectratio'),
-        # 'model' : request.POST.get('model')
-
-        resultado = llamar_api_interior(final_prompt, aspect_ratio, negative, model)
-        imagenes_base64 = bytes_to_base64(resultado)
-
-        context = {
-            'name': 'Interior',
-            'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
-            'controls' : [ living_room, styles, promptt, negative, models, aspectratio  ],
-            'action' : '/interior/',
-            'imagenes_base64': imagenes_base64,
-            'prompt': prompt,
-        }
-
-        return render(request, 'GaudeSite/tool.html', context)   
-
-
+    controls = [ living_room, styles, promptt, negative, models, aspectratio  ]
     context = {
         'name': 'Interior',
         'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
-        'controls' : [ living_room, styles, promptt, negative, models, aspectratio  ] ,
+        'controls' : controls ,
         'action' : '/interior/'
     }
+
+    if request.method == 'POST':
+        for index, control in enumerate(controls):
+            if request.POST.get(control['slug']):  # Accede al diccionario control usando ['slug']
+                controls[index]['value'] = request.POST.get(control['slug'])  # Actualiza el valor en el diccionario control
+        
+        final_prompt = f"""
+            Create a stunning architectural image featuring a 
+            "{controls[0].get('value', 'Unspecified')}" in  
+            "{controls[1].get('value', 'Unspecified')}" style, capturing its essence and ambiance in vivid detail. The image must have  
+            "{controls[2].get('value', 'Unspecified')}" 
+        """
+
+        params = {
+            'final_prompt' : final_prompt, 
+            'aspect_ratio' : controls[5].get('value', ''),
+            'negative' : controls[3].get('value', ''), 
+            'model' : controls[4].get('value', '')
+        }
+
+        context['imagenes_base64'] = bytes_to_base64( call_api(params) )
+        context['prompt'] = controls[2].get('value', '') 
+
+        return render(request, 'GaudeSite/tool.html', context)
+
     return render(request, 'GaudeSite/tool.html', context)  
 
 def exteriorImage(request):
@@ -457,39 +435,37 @@ def exteriorImage(request):
                 ]
         }
     controls = [ types_construction, styles, promptt, negative, models, aspectratio  ]
-    if request.method == 'POST':
-        
-        prompt = request.POST.get('prompt')
-        construction = request.POST.get('select1')
-        style = request.POST.get('select2')
-        aspect_ratio = request.POST.get('select3')
-        negative_prompt = request.POST.get('negative_prompt')
-        model = request.POST.get('select6')
-        
-        #final_prompt= "Create a stunning architectural an image from the exterior featuring a " + construction + " in" + style + " style, capturing its essence and ambiance in vivid detail. The construction must have " + prompt       
-        final_prompt= "Create a stunning architectural an image from the exterior featuring a"
-        resultado = llamar_api_exterior(final_prompt, aspect_ratio, negative_prompt, model)        
-        imagenes_base64 = bytes_to_base64(resultado)
-        d = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-        context = {
-            'name': 'Exterior',
-            'description': 'Sube un boceto o modelo para rediseñar tu espacio exterior con más de 20 estilos únicos.',
-            'controls' : [ types_construction, styles, promptt, negative, models, aspectratio  ],
-            'action' : '/exterior/',
-            'imagenes_base64': imagenes_base64,
-            'prompt': prompt
-        }
-
-        return render(request, 'GaudeSite/tool.html', context) 
-
     context = {
         'name': 'Exterior',
         'description': 'Sube un boceto o modelo para rediseñar tu espacio exterior con más de 20 estilos únicos.',
         'controls' : controls,
         'action' : '/exterior/'
-    }        
+    }  
+
+    if request.method == 'POST':
+        for index, control in enumerate(controls):
+            if request.POST.get(control['slug']): 
+                controls[index]['value'] = request.POST.get(control['slug'])
+        
+        final_prompt = "Create a stunning architectural an image from the exterior featuring a "
+        final_prompt += controls[0].get('value', 'Unspecified') + " in " 
+        final_prompt += controls[1].get('value', 'Unspecified') + " style, capturing its essence and ambiance in vivid detail. The construction must have "
+        final_prompt += controls[2].get('value', 'Unspecified') 
+
+        params = {
+            'final_prompt' : final_prompt, 
+            'aspect_ratio' : controls[5].get('value', ''),
+            'negative' : controls[3].get('value', ''), 
+            'model' : controls[4].get('value', '')
+        }
+
+        context['imagenes_base64'] = bytes_to_base64( call_api(params) )
+        context['prompt'] = controls[2].get('value', '') 
+
+        return render(request, 'GaudeSite/tool.html', context)
+
     return render(request, 'GaudeSite/tool.html', context)
+
 
 @login_required
 def outPaint(request):
@@ -743,8 +719,8 @@ def upScale(request):
     }
     return render(request, 'GaudeSite/tool.html', context)
 
-def login(request):
-    return render(request, 'registration/login.html')
+#def login(request):
+    #return render(request, 'registration/login.html')
 
 def register(request):
     return render(request, 'registration/register.html')
@@ -824,7 +800,7 @@ def payment_cancelled(request):
     return render(request, 'GaudeSite/payments/payment_cancelled.html')
 
 
-
+#Estos no sirven estan deshabilitados
 @login_required
 def add_credits_view(request):
     if request.method == 'POST':

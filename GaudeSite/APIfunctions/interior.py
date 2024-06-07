@@ -1,11 +1,12 @@
 import requests
 from django.conf import settings
+from django.contrib.auth import get_user_model
 
 
-def send_generation_request(
-    host,
-    params,
-):
+from GaudeSite.models import UserProfile
+
+
+def send_generation_request( host, params ):
     headers = {
         "Accept": "image/*",
         "Authorization": f"Bearer {settings.STABILITY_KEY}"
@@ -50,6 +51,11 @@ def llamar_api_interior(prompt, aspect_ratio, negative_prompt, model):
         "model" : model,
         "mode" : "text-to-image"
     }
+
+    User = get_user_model()
+    usuario = User.objects.first()
+    
+
     response = send_generation_request(host, params)
     
     output_image = response.content
@@ -59,6 +65,11 @@ def llamar_api_interior(prompt, aspect_ratio, negative_prompt, model):
     if response.status_code == 200:
         # Convertimos la respuesta a JSON y la retornamos
         #return response.json()
+        
+        user_profile, created = UserProfile.objects.get_or_create(user=usuario)
+        user_profile.credits -= 10
+        user_profile.save()
+
         return output_image
     else:
         # Manejo de errores o respuesta no exitosa

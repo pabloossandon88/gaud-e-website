@@ -1,3 +1,7 @@
+{% load i18n %}
+{% load allauth %}
+
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -55,21 +59,19 @@
             </span>
         </div>
         <h2 class="text-2xl font-semibold text-center mb-4">GAUD-E</h2>
-        <form action="" method="post">
-            {% csrf_token %}
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email *</label>
-                <input type="text" name="username" class="form-input w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring-blue-500" required placeholder="antoni@gaud-e.com">
-            </div>
-            <div class="mb-6">
-                <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password *</label>
-                <input type="password" name="password" class="form-input w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring-blue-500" required placeholder="••••••••">
-            </div>
-            <button type="submit" class="w-full bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Ingresar</button>
-            
-        </form>
+        
+        {% element form method="post" no_visible_fields=True %}
+            {% slot actions %}
+                {% csrf_token %}
+                <button type="submit" class="w-full text-white bg-red-600 px-4 py-2 rounded-lg hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                    Continuar con google
+                </button>
+                
+            {% endslot %}
+        {% endelement %}
+
         <div class="text-center m-5">
-            <a  href="{% url 'home-view' %}"  class="w-full text-teal-700 px-4 py-2 rounded-lg hover:bg-teal-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Volver a Homeee</a>
+            <a  href="{% url 'home-view' %}"  class="w-full text-teal-700 px-4 py-2 rounded-lg hover:bg-teal-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Volver a Home</a>
         </div>
     </div>
     
@@ -80,3 +82,10 @@
     <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+

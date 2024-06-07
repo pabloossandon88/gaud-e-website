@@ -4,9 +4,7 @@
 {% block content%}
 
 <br>
-<br>
-<br>
-<br>
+
     <!--
     <h1 class="text-2xl font-extrabold text-gray-800">Pagar con PayPal</h1>
     <form method="post" action="{% url 'create_payment' %}">
@@ -15,8 +13,10 @@
     </form>
     -->
 
-    <div class="font-[sans-serif] bg-white p-4 lg:max-w-7xl max-w-xl mx-auto">
+    <div class="container font-[sans-serif] bg-white p-4 lg:max-w-6xl max-w-xl mx-100 content-center my-20 mx-20">
         <div class="grid lg:grid-cols-3 gap-10">
+
+          
           <div class="lg:col-span-2 max-lg:order-1">
   
             <div class="flex items-start">
@@ -61,19 +61,19 @@
               <h2 class="text-2xl font-extrabold text-gray-800">Payment method</h2>
   
               <div class="grid gap-4 sm:grid-cols-2 mt-8">
-                <!--
+                
                 <div class="flex items-center">
-                  <input type="radio" class="w-5 h-5 cursor-pointer" id="card" checked />
+                  <input type="radio" name="payment-method" class="w-5 h-5 cursor-pointer" id="card" checked />
                   <label for="card" class="ml-4 flex gap-2 cursor-pointer">
                     <img src="https://readymadeui.com/images/visa.webp" class="w-12" alt="card1" />
                     <img src="https://readymadeui.com/images/american-express.webp" class="w-12" alt="card2" />
                     <img src="https://readymadeui.com/images/master.webp" class="w-12" alt="card3" />
                   </label>
                 </div>
-                -->
+                
   
                 <div class="flex items-center">
-                  <input type="radio" class="w-5 h-5 cursor-pointer" id="paypal" />
+                  <input type="radio" name="payment-method" class="w-5 h-5 cursor-pointer" id="paypal" />
                   <label for="paypal" class="ml-4 flex gap-2 cursor-pointer">
                     <img src="https://readymadeui.com/images/paypal.webp" class="w-20" alt="paypalCard" />
                   </label>
@@ -131,7 +131,7 @@
             </ul>
           </div>
         </div>
-      </div>
+    </div>
 
 <br>
 <br>

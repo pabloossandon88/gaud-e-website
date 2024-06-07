@@ -100,6 +100,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+
+    #cga101661_gaud-e
+    #cga101661_gaud-e
+    #(f^ynIUxKqiV
 }
 
 
@@ -187,7 +191,13 @@ SOCIALACCOUNT_PROVIDERS = {
             'client_id': env('ID_CLIENT_AUTHO'),
             'secret': env('ID_SECRET_GOOGLE'),
             'key': ''
-        }
+        },
+        'FIELDS': [
+            'id', 
+            'email', 
+            'name', 
+            'picture'
+        ]
     }
 }
 

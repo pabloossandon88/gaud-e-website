@@ -7,8 +7,6 @@
             </a>
 
             
-            
-            
             <div class="flex items-end md:items-center" >
 
               {% if request.user.is_authenticated  %}
@@ -17,7 +15,13 @@
               </div>  
               
                 <button class="md:hidden outline-none focus:outline-none flex items-center md:min-w-32 ml-5">
-                  <img class="inline-block h-7 w-7 rounded-full ring-2 ring-white ml-0 " src="http://127.0.0.1:8000/static/images/user-default.png" alt="">
+                  {% if user.userprofile.profile_image != None %}
+                    <img  class="inline-block h-7 w-7 rounded-full ring-2 ring-white ml-0 " 
+                          src="{{user.userprofile.profile_image}}" alt="">
+                  {% else %}
+                    <img  class="inline-block h-7 w-7 rounded-full ring-2 ring-white ml-0 " 
+                          src="http://127.0.0.1:8000/static/images/user-default.png" alt="">
+                  {%  endif %}
                 </button>
               {%  else %}
               <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
@@ -44,7 +48,13 @@
 
                       <div class="group inline-block">
                         <button class="outline-none focus:outline-none flex items-center min-w-32">
-                          <img class="inline-block h-7 w-7 rounded-full ring-2 ring-white ml-0" src="http://127.0.0.1:8000/static/images/user-default.png" style="margin-left: 10px;" alt="">
+                          {% if user.userprofile.profile_image != None %}
+                            <img  class="inline-block h-7 w-7 rounded-full ring-2 ring-white ml-0 " 
+                                  src="{{user.userprofile.profile_image}}" alt="">
+                          {% else %}
+                            <img  class="inline-block h-7 w-7 rounded-full ring-2 ring-white ml-0 " 
+                                  src="http://127.0.0.1:8000/static/images/user-default.png" alt="">
+                          {%  endif %}
                         </button>
                         <ul class=" rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32" style="background: rgba(27,149,149,1);">
                             <li class="rounded-sm px-5 py-2 hover:bg-teal-800 text-right">
