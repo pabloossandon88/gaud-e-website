@@ -6,7 +6,7 @@
 <main>
   <div class="grid grid-cols-1 md:grid-cols-3 py-5 md:h-screen">
     <div class="pl-2 pr-1 pt-24 border-r border-gray-200">
-        <form id="formgenerate" action="{{ action }}" method="POST">
+        <form id="formgenerate" action="{{ action }}" method="POST" enctype="multipart/form-data">
             <div class="md:max-h-[70vh] md:overflow-y-scroll">
                 <h1 class="mb-2 text-xl text-teal-700 dark:text-white font-extrabold">{{ name }}</h1>
                 <p  class="mb-2 text-xs font-medium text-teal-700 dark:text-white">{{ description }}</p>

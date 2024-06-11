@@ -23,8 +23,7 @@ from .APIfunctions.outpaint             import llamar_api_outpaint
 from .APIfunctions.interiorRedecoration import llamar_api_interiorRedecoration
 from .APIfunctions.upscale              import llamar_api_upscale
 
-from .APIfunctions.dynamic_request      import call_api
-from .APIfunctions.dynamic_request      import validateRequestPost
+from .APIfunctions.dynamic_request      import call_api, call_api_image, validateRequestPost
 
 from .models import UserProfile
 
@@ -74,7 +73,120 @@ image = {
                 'slug' : 'imagen',
                 'type' : 'file'
         }
-    
+living_room = {
+        'name' : 'Tipo de habitación',
+        'slug' : 'living_room',
+        'type' : 'ratio',
+        'items' : [
+            ['Living Room', 'living_room'],
+            ['Dormitorio', 'bedroom'],
+            ['Baño', 'bathroom'],
+            ['Cocina', 'kitchen'],
+            ['dining_room', 'Comedor'],
+            ['reception', 'Recepción'],
+            ['dressing_room', 'Vestidor'],
+            ['loft', 'Desván'],
+            ['office', 'Oficina'],
+            ['meeting_room', 'Sala de Reuniones'],
+            ['coworking_space', 'Espacio de Coworking'],
+            ['study_room', 'Sala de estudio'],
+            ['gaming_room', 'Sala de juegos'],
+            ['coffee_shop', 'Cafetería'],
+            ['restaurant', 'Restaurant'],
+            ['hotel_lobby', 'Lobby de hotel'],
+            ['hotel_room', 'Cuarto de hotel'],
+            ['hotel_bathroom', 'Baño de hotel'],
+            ['auditorium', 'Auditorio'],
+            ['classroom', 'Sala de clases'],
+            ['fitness_gym_room', 'Sala de gimnasio'],
+            ['clothing_store_room', 'Tienda de ropa']
+            ]   
+        #['Edificio de Oficinas', 'office_building'],
+    }
+styles_interior = {
+            'name' : 'Estilo',
+            'slug' : 'estilo',
+            'type' : 'ratio',
+            'items' : [
+                ['Cálida y acogedora', 'warm_and_cosy'],
+                ['Lujoso', 'luxurious'],
+                ['Minimalista', 'minimalist'],
+                ['Boho-chic', 'boho_chic'],
+                ['Neoclásico', 'neoclassic'],
+                ['Art Decó', 'art_deco'],
+                ['Art Nouveau', 'art_nouveau'],
+                ['IKEA', 'ikea'],
+                ['Biophilic', 'biophilic'],
+                ['Industrial', 'industrial'],
+                ['Japandi', 'japandi'],
+                ['Moderno', 'modern'],
+                ['Contemporáneo', 'contemporary'],
+                ['Ecléctico', 'eclectic'],
+                ['Wabi-sabi', 'wabi_sabi'],
+                ['Zen', 'zen'],
+                ['Costero', 'coastral'],
+                ['Mediterráneo', 'mediterranean'],
+                ['Shabby Chic', 'shabby_chic'],
+                ['Bauhaus', 'bauhaus'],
+                ['Futurista', 'futuristic'],
+                ['Faraónico', 'pharaonic'],
+                ['Tropical', 'tropical'],
+                ['Tribal', 'tribal'],
+                ['Rústico', 'rustic'],
+                ['Moderno de mediados de siglo', 'midcentury_modern'],
+                ['Maximalista', 'maximalist'],
+                ['Vintage', 'vintage'],
+                ['Medieval', 'medieval'],
+                ['Barroco', 'barroque'],
+                ['Halloween', 'halloween'],
+                ['Cyberpunk', 'cyberpunk'],
+                ['Navideño', 'chrismas']
+            ]
+    }  
+types_construction = {
+            'name' : 'Tipo de construcción',
+            'slug' : 'construction',
+            'type' : 'ratio',
+            'items' : [
+                        ['Casa', 'house'],
+                        ['Edificio', 'building'],
+                        ['Cafeteria', 'coffe_shop'],
+                        ['Fabrica', 'factory'],
+                        ['Restaurant', 'restaurant'],
+                        ['Hospital', 'hospital'],
+                        ['Hotel', 'hotel'],
+                        ['Libreria', 'library'],
+                        ['Teatro', 'theater'],
+                        ['Cine', 'cinema'],
+                        ['Museo', 'museum'],
+                        ['Centro Comercial', 'mall']
+                    ]   
+            #['Edificio de Oficinas', 'office_building'],
+        }
+styles_exterior = {
+                'name' : 'Estilo',
+                'slug' : 'estilo',
+                'type' : 'ratio',
+                'items' : [
+                    ['Realista', 'realistic'],
+                    ['CGI', 'CGI'],
+                    ['Night', 'night'],
+                    ['Snow', 'snow'],
+                    ['Rain', 'rain'],
+                    ['sketch', 'sketch'],
+                    ['watercolor', 'watercolor'],
+                    ['illustration', 'illustration']
+                ]
+        }
+styles_masterPlan = {
+                'name' : 'Estilo',
+                'slug' : 'estilo',
+                'type' : 'ratio',
+                'items' : [
+                    ['MaterPlan', 'masterplan']
+                ]
+    }
+
 # Function to convert bytes to base64
 def bytes_to_base64(image_bytes):
     return base64.b64encode(image_bytes).decode()
@@ -109,6 +221,124 @@ def imgGenerator(request):
 
 def projEval(request):
     return render(request, 'GaudeSite/projeval.html')
+
+
+#TOOLS
+
+def set_controls_value(request, controls):
+    #reescribo los valores que se veran en los input
+    for index, control in enumerate(controls):
+        if request.POST.get(control['slug']):
+            controls[index]['value'] = request.POST.get(control['slug'])
+    return controls
+
+def interiorImage(request):
+
+    context = {
+        'name': 'Interior',
+        'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
+        'controls' : [ living_room, styles_interior, promptt, negative, models, aspectratio  ] ,
+        'action' : '/interior/'
+        }
+
+    if request.method == 'POST':
+        context['controls'] = set_controls_value(request, context['controls'])
+        
+        #AQUI SI CAMBIARA SEGUN LA HERRAMIENTA
+        final_prompt = f"""
+            Create a stunning architectural image featuring a 
+            "{context['controls'][0].get('value', 'Unspecified')}" in  
+            "{context['controls'][1].get('value', 'Unspecified')}" style, capturing its essence and ambiance in vivid detail. The image must have  
+            "{context['controls'][2].get('value', 'Unspecified')}" 
+        """
+
+        params = {
+            'final_prompt' : final_prompt, 
+            'aspect_ratio' : context['controls'][5].get('value', ''),
+            'negative' : context['controls'][3].get('value', ''), 
+            'model' : context['controls'][4].get('value', '')
+        }
+
+        #Generacion imagen -> llamado a API
+        context['imagenes_base64'] = bytes_to_base64( call_api(params) )
+
+    return render(request, 'GaudeSite/tool.html', context)  
+
+def exteriorImage(request):
+    context = {
+        'name': 'Exterior',
+        'description': 'Sube un boceto o modelo para rediseñar tu espacio exterior con más de 20 estilos únicos.',
+        'controls' : [ types_construction, styles_exterior, promptt, negative, models, aspectratio  ],
+        'action' : '/exterior/'
+    }  
+
+    if request.method == 'POST':
+        context['controls'] = set_controls_value(request, context['controls'])
+
+        #AQUI SI CAMBIARA SEGUN LA HERRAMIENTA
+        final_prompt = f"""
+            Create a stunning architectural an image from the exterior featuring a
+            "{context['controls'][0].get('value', 'Unspecified')}" in  
+            "{context['controls'][1].get('value', 'Unspecified')}" style, capturing its essence and ambiance in vivid detail. The construction must have  
+            "{context['controls'][2].get('value', 'Unspecified')}" 
+        """
+
+        params = {
+            'final_prompt' : final_prompt, 
+            'aspect_ratio' : context['controls'][5].get('value', ''),
+            'negative' : context['controls'][3].get('value', ''), 
+            'model' : context['controls'][4].get('value', '')
+        }
+
+        context['imagenes_base64'] = bytes_to_base64( call_api(params) )
+    
+    return render(request, 'GaudeSite/tool.html', context)
+
+def masterPlan(request):
+    context = {
+        'name': 'Master Plan',
+        'description': 'Genera un loteo o un condominio en 3D, a partir solamente de un esquema o fotografía. Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
+        'controls' : [ image, promptt, styles_masterPlan, negative ],
+        'action' : '/masterplan/'
+    }
+
+    if request.method == 'POST':
+        context['controls'] = set_controls_value(request, context['controls'])
+
+        imagen = request.FILES.get('imagen')
+
+        if imagen:
+            final_prompt = f"""
+                "{context['controls'][2].get('value', 'Unspecified')}"   
+                "{context['controls'][1].get('value', 'Unspecified')}" 
+             """
+
+            params = {
+                'final_prompt' : final_prompt, 
+                #'aspect_ratio' : context['controls'][5].get('value', ''),
+                'negative' : context['controls'][3].get('value', ''), 
+                #'model' : context['controls'][4].get('value', '')
+             }
+
+            context['imagenes_base64'] = bytes_to_base64( call_api_image(imagen, params ) )
+
+        
+            return render(request, 'GaudeSite/tool.html', context)
+            
+        else:
+            error_message = "No se ha subido ninguna imagen."
+            return HttpResponse(error_message)       
+    
+    
+
+    return render(request, 'GaudeSite/tool.html', context)
+
+
+
+
+
+
+
 
 @login_required
 def sketchImg(request):
@@ -169,47 +399,6 @@ def removeBackground(request):
     }        
     return render(request, 'GaudeSite/tool.html', context)
 
-def masterPlan(request):
-    styles = {
-                'name' : 'Estilo',
-                'slug' : 'estilo',
-                'type' : 'ratio',
-                'items' : [
-                    ['MaterPlan', 'masterplan']
-                ]
-        }
-    
-    if request.method == 'POST':
-        tipo_construccion = request.POST.get('select1')
-        negative_prompt = request.POST.get('textoEjemplo2')
-        detalles = request.POST.get('textoEjemplo')
-        imagen = request.FILES.get('imagen')
-
-        prompt = f'{tipo_construccion} {detalles}'
-
-        if imagen:
-            resultado = llamar_api_masterplan(imagen, prompt, negative_prompt)
-            imagenes_base64 = bytes_to_base64(resultado)
-
-            context = {'imagenes_base64': imagenes_base64,
-                       'tipo_construccion': tipo_construccion,
-                       "negative_prompt": negative_prompt,
-                       'detalles': detalles
-            }
-        
-            return render(request, 'GaudeSite/masterplan.html', context)
-        else:
-            error_message = "No se ha subido ninguna imagen."
-            return HttpResponse(error_message)       
-    
-    context = {
-        'name': 'Master Plan',
-        'description': 'Genera un loteo o un condominio en 3D, a partir solamente de un esquema o fotografía. Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
-        'controls' : [ image, promptt, styles, negative ],
-        'action' : '/masterplan/'
-    }
-
-    return render(request, 'GaudeSite/tool.html', context)
 
 @login_required
 def searchReplace(request):
@@ -292,179 +481,6 @@ def replaceStructure(request):
     }
     return render(request, 'GaudeSite/tool.html', context)  
 
-def interiorImage(request):
-
-    living_room = {
-            'name' : 'Tipo de habitación',
-            'slug' : 'living_room',
-            'type' : 'ratio',
-            'items' : [
-                ['Living Room', 'living_room'],
-                ['Dormitorio', 'bedroom'],
-                ['Baño', 'bathroom'],
-                ['Cocina', 'kitchen'],
-                ['dining_room', 'Comedor'],
-                ['reception', 'Recepción'],
-                ['dressing_room', 'Vestidor'],
-                ['loft', 'Desván'],
-                ['office', 'Oficina'],
-                ['meeting_room', 'Sala de Reuniones'],
-                ['coworking_space', 'Espacio de Coworking'],
-                ['study_room', 'Sala de estudio'],
-                ['gaming_room', 'Sala de juegos'],
-                ['coffee_shop', 'Cafetería'],
-                ['restaurant', 'Restaurant'],
-                ['hotel_lobby', 'Lobby de hotel'],
-                ['hotel_room', 'Cuarto de hotel'],
-                ['hotel_bathroom', 'Baño de hotel'],
-                ['auditorium', 'Auditorio'],
-                ['classroom', 'Sala de clases'],
-                ['fitness_gym_room', 'Sala de gimnasio'],
-                ['clothing_store_room', 'Tienda de ropa']
-                ]   
-            #['Edificio de Oficinas', 'office_building'],
-        }
-    styles = {
-                'name' : 'Estilo',
-                'slug' : 'estilo',
-                'type' : 'ratio',
-                'items' : [
-                    ['Cálida y acogedora', 'warm_and_cosy'],
-                    ['Lujoso', 'luxurious'],
-                    ['Minimalista', 'minimalist'],
-                    ['Boho-chic', 'boho_chic'],
-                    ['Neoclásico', 'neoclassic'],
-                    ['Art Decó', 'art_deco'],
-                    ['Art Nouveau', 'art_nouveau'],
-                    ['IKEA', 'ikea'],
-                    ['Biophilic', 'biophilic'],
-                    ['Industrial', 'industrial'],
-                    ['Japandi', 'japandi'],
-                    ['Moderno', 'modern'],
-                    ['Contemporáneo', 'contemporary'],
-                    ['Ecléctico', 'eclectic'],
-                    ['Wabi-sabi', 'wabi_sabi'],
-                    ['Zen', 'zen'],
-                    ['Costero', 'coastral'],
-                    ['Mediterráneo', 'mediterranean'],
-                    ['Shabby Chic', 'shabby_chic'],
-                    ['Bauhaus', 'bauhaus'],
-                    ['Futurista', 'futuristic'],
-                    ['Faraónico', 'pharaonic'],
-                    ['Tropical', 'tropical'],
-                    ['Tribal', 'tribal'],
-                    ['Rústico', 'rustic'],
-                    ['Moderno de mediados de siglo', 'midcentury_modern'],
-                    ['Maximalista', 'maximalist'],
-                    ['Vintage', 'vintage'],
-                    ['Medieval', 'medieval'],
-                    ['Barroco', 'barroque'],
-                    ['Halloween', 'halloween'],
-                    ['Cyberpunk', 'cyberpunk'],
-                    ['Navideño', 'chrismas']
-                ]
-        }  
-    controls = [ living_room, styles, promptt, negative, models, aspectratio  ]
-    context = {
-        'name': 'Interior',
-        'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
-        'controls' : controls ,
-        'action' : '/interior/'
-    }
-
-    if request.method == 'POST':
-        for index, control in enumerate(controls):
-            if request.POST.get(control['slug']):  # Accede al diccionario control usando ['slug']
-                controls[index]['value'] = request.POST.get(control['slug'])  # Actualiza el valor en el diccionario control
-        
-        final_prompt = f"""
-            Create a stunning architectural image featuring a 
-            "{controls[0].get('value', 'Unspecified')}" in  
-            "{controls[1].get('value', 'Unspecified')}" style, capturing its essence and ambiance in vivid detail. The image must have  
-            "{controls[2].get('value', 'Unspecified')}" 
-        """
-
-        params = {
-            'final_prompt' : final_prompt, 
-            'aspect_ratio' : controls[5].get('value', ''),
-            'negative' : controls[3].get('value', ''), 
-            'model' : controls[4].get('value', '')
-        }
-
-        context['imagenes_base64'] = bytes_to_base64( call_api(params) )
-        context['prompt'] = controls[2].get('value', '') 
-
-        return render(request, 'GaudeSite/tool.html', context)
-
-    return render(request, 'GaudeSite/tool.html', context)  
-
-def exteriorImage(request):
-    types_construction = {
-            'name' : 'Tipo de construcción',
-            'slug' : 'construction',
-            'type' : 'ratio',
-            'items' : [
-                        ['Casa', 'house'],
-                        ['Edificio', 'building'],
-                        ['Cafeteria', 'coffe_shop'],
-                        ['Fabrica', 'factory'],
-                        ['Restaurant', 'restaurant'],
-                        ['Hospital', 'hospital'],
-                        ['Hotel', 'hotel'],
-                        ['Libreria', 'library'],
-                        ['Teatro', 'theater'],
-                        ['Cine', 'cinema'],
-                        ['Museo', 'museum'],
-                        ['Centro Comercial', 'mall']
-                    ]   
-            #['Edificio de Oficinas', 'office_building'],
-        }
-    styles = {
-                'name' : 'Estilo',
-                'slug' : 'estilo',
-                'type' : 'ratio',
-                'items' : [
-                    ['Realista', 'realistic'],
-                    ['CGI', 'CGI'],
-                    ['Night', 'night'],
-                    ['Snow', 'snow'],
-                    ['Rain', 'rain'],
-                    ['sketch', 'sketch'],
-                    ['watercolor', 'watercolor'],
-                    ['illustration', 'illustration']
-                ]
-        }
-    controls = [ types_construction, styles, promptt, negative, models, aspectratio  ]
-    context = {
-        'name': 'Exterior',
-        'description': 'Sube un boceto o modelo para rediseñar tu espacio exterior con más de 20 estilos únicos.',
-        'controls' : controls,
-        'action' : '/exterior/'
-    }  
-
-    if request.method == 'POST':
-        for index, control in enumerate(controls):
-            if request.POST.get(control['slug']): 
-                controls[index]['value'] = request.POST.get(control['slug'])
-        
-        final_prompt = "Create a stunning architectural an image from the exterior featuring a "
-        final_prompt += controls[0].get('value', 'Unspecified') + " in " 
-        final_prompt += controls[1].get('value', 'Unspecified') + " style, capturing its essence and ambiance in vivid detail. The construction must have "
-        final_prompt += controls[2].get('value', 'Unspecified') 
-
-        params = {
-            'final_prompt' : final_prompt, 
-            'aspect_ratio' : controls[5].get('value', ''),
-            'negative' : controls[3].get('value', ''), 
-            'model' : controls[4].get('value', '')
-        }
-
-        context['imagenes_base64'] = bytes_to_base64( call_api(params) )
-        context['prompt'] = controls[2].get('value', '') 
-
-        return render(request, 'GaudeSite/tool.html', context)
-
-    return render(request, 'GaudeSite/tool.html', context)
 
 
 @login_required
