@@ -32,6 +32,4 @@ urlpatterns = [
     path('execute-payment/', views.execute_payment, name='execute_payment'),
     path('payment-cancelled/', views.payment_cancelled, name='payment_cancelled'),
 
-    
-
 ]

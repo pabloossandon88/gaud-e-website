@@ -32,8 +32,8 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
-# Ver en móviles , local -> junto con -> runserver python manage.py 0.0.0.0:8000
+ALLOWED_HOSTS = ['gaud-e.app', '127.0.0.1']
+# Ver en m贸viles , local -> junto con -> runserver python manage.py 0.0.0.0:8000
 # ALLOWED_HOSTS = ['127.0.0.1','192.168.1.12']
 
 
@@ -100,10 +100,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-
-    #cga101661_gaud-e
-    #cga101661_gaud-e
-    #(f^ynIUxKqiV
 }
 
 
@@ -141,10 +137,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Un directorio diferente
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),  # Otros directorios adicionales
+    # Otros directorios
 ]
+
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -191,13 +192,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'client_id': env('ID_CLIENT_AUTHO'),
             'secret': env('ID_SECRET_GOOGLE'),
             'key': ''
-        },
-        'FIELDS': [
-            'id', 
-            'email', 
-            'name', 
-            'picture'
-        ]
+        }
     }
 }
 
