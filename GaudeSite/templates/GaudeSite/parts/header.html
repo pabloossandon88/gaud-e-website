@@ -4,7 +4,11 @@
     <nav class="border-gray-200 py-2.5 dark:bg-gray-900">
         <div class="flex flex-wrap items-center justify-between  px-4 mx-auto">
             <a href="{% url 'home-view' %}" class="flex items-center">
+                <!-- 
                 <img src="{% static 'images/logoGaudi.png' %}"  class="h-6 mr-3 sm:h-9"/>
+                -->
+                <img src="https://eqoweb.cloud/wp-content/themes/eqo-website/static/images/logoGaudi.png"  class="h-6 mr-3 sm:h-9"/>
+                
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">GAUD-E</span>
             </a>
 
@@ -21,8 +25,12 @@
                     <img  class="inline-block h-7 w-7 rounded-full ring-2 ring-white ml-0 " 
                           src="{{user.userprofile.profile_image}}" alt="">
                   {% else %}
+                    <!--
                     <img  class="inline-block h-7 w-7 rounded-full ring-2 ring-white ml-0 " 
                           src="{% static 'images/user-default.png' %}" alt="">
+                    -->
+                    <img  class="inline-block h-7 w-7 rounded-full ring-2 ring-white ml-0 " 
+                          src="https://eqoweb.cloud/wp-content/themes/eqo-website/static/images/user-default.png" alt="">
                   {%  endif %}
                 </button>
               {%  else %}

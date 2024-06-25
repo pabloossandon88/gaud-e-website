@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.conf import settings
 
+from django.core.cache import cache
+
 import paypalrestsdk
 from django.urls import reverse
 
@@ -251,6 +253,7 @@ def interiorImage(request):
             "{context['controls'][1].get('value', 'Unspecified')}" style, capturing its essence and ambiance in vivid detail. The image must have  
             "{context['controls'][2].get('value', 'Unspecified')}" 
         """
+        final_prompt = context['controls'][2].get('value', 'Unspecified')
 
         params = {
             'final_prompt' : final_prompt, 
@@ -834,3 +837,8 @@ def deduct_credits_view(request):
         user_profile.credits -= amount
         user_profile.save()
         return redirect('some_view')
+
+
+def clear_cache(request):
+    cache.clear()
+    return HttpResponse("Cache cleared")
