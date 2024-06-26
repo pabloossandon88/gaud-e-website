@@ -254,7 +254,6 @@ def interiorImage(request):
             "{context['controls'][2].get('value', 'Unspecified')}" 
         """
         
-
         params = {
             'final_prompt' : final_prompt, 
             'aspect_ratio' : context['controls'][5].get('value', ''),
