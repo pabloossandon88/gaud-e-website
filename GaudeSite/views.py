@@ -253,7 +253,7 @@ def interiorImage(request):
             "{context['controls'][1].get('value', 'Unspecified')}" style, capturing its essence and ambiance in vivid detail. The image must have  
             "{context['controls'][2].get('value', 'Unspecified')}" 
         """
-        
+
         params = {
             'final_prompt' : final_prompt, 
             'aspect_ratio' : context['controls'][5].get('value', ''),
