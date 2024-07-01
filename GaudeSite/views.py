@@ -467,6 +467,93 @@ def outPaint(request):
             
     return render(request, 'GaudeSite/tool.html', context)
 
+@login_required 
+def interiorRedecoration(request):
+    styles = {
+                'name' : 'Estilo',
+                'slug' : 'estilo',
+                'type' : 'ratio',
+                'items' : [
+                    ['Cálida y acogedora', 'warm_and_cosy'],
+                    ['Lujoso', 'luxurious'],
+                    ['Minimalista', 'minimalist'],
+                    ['Boho-chic', 'boho_chic'],
+                    ['Neoclásico', 'neoclassic'],
+                    ['Art Decó', 'art_deco'],
+                    ['Art Nouveau', 'art_nouveau'],
+                    ['IKEA', 'ikea'],
+                    ['Biophilic', 'biophilic'],
+                    ['Industrial', 'industrial'],
+                    ['Japandi', 'japandi'],
+                    ['Moderno', 'modern'],
+                    ['Contemporáneo', 'contemporary'],
+                    ['Ecléctico', 'eclectic'],
+                    ['Wabi-sabi', 'wabi_sabi'],
+                    ['Zen', 'zen'],
+                    ['Costero', 'coastral'],
+                    ['Mediterráneo', 'mediterranean'],
+                    ['Shabby Chic', 'shabby_chic'],
+                    ['Bauhaus', 'bauhaus'],
+                    ['Futurista', 'futuristic'],
+                    ['Faraónico', 'pharaonic'],
+                    ['Tropical', 'tropical'],
+                    ['Tribal', 'tribal'],
+                    ['Rústico', 'rustic'],
+                    ['Moderno de mediados de siglo', 'midcentury_modern'],
+                    ['Maximalista', 'maximalist'],
+                    ['Vintage', 'vintage'],
+                    ['Medieval', 'medieval'],
+                    ['Barroco', 'barroque'],
+                    ['Halloween', 'halloween'],
+                    ['Cyberpunk', 'cyberpunk'],
+                    ['Navideño', 'chrismas']
+                ]
+        }
+    
+    if request.method == 'POST':
+               
+        imagen = request.FILES.get('imagen')
+        prompt = request.POST.get('textoEjemplo')
+        style = request.POST.get('select2')
+        negative_prompt = request.POST.get('textoEjemplo2')
+        seedd = request.POST.get('seed')
+        
+        full_prompt = f"""
+            Redesing the image in the {style} style, 
+            taking into account the following details: "{prompt}". 
+            As an expert interioir designer, ensure the design reflects your expertise
+            and creativity.
+        """
+
+        if imagen:
+            resultado = llamar_api_interiorRedecoration(imagen, full_prompt, negative_prompt, seedd)
+            imagenes_base64 = bytes_to_base64(resultado)
+
+            context = {
+                'imagenes_base64': imagenes_base64,
+                "negative_prompt": negative_prompt,
+                'detalles': prompt
+            }
+        
+            return render(request, 'GaudeSite/tools/interiorredecoration.html', context)
+        
+        else:
+            error_message = "No se ha subido ninguna imagen."
+            return HttpResponse(error_message)
+        
+    context = {
+        'name': 'Interior',
+        'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
+        'controls' : [ image, promptt, styles, negative, seed ],
+        'action' : '/interiorredecoration/'
+    }
+    return render(request, 'GaudeSite/tool.html', context) 
+
+
+
+
+
+
 
 
 @login_required
@@ -610,87 +697,6 @@ def replaceStructure(request):
     }
     return render(request, 'GaudeSite/tool.html', context)  
 
-@login_required 
-def interiorRedecoration(request):
-    styles = {
-                'name' : 'Estilo',
-                'slug' : 'estilo',
-                'type' : 'ratio',
-                'items' : [
-                    ['Cálida y acogedora', 'warm_and_cosy'],
-                    ['Lujoso', 'luxurious'],
-                    ['Minimalista', 'minimalist'],
-                    ['Boho-chic', 'boho_chic'],
-                    ['Neoclásico', 'neoclassic'],
-                    ['Art Decó', 'art_deco'],
-                    ['Art Nouveau', 'art_nouveau'],
-                    ['IKEA', 'ikea'],
-                    ['Biophilic', 'biophilic'],
-                    ['Industrial', 'industrial'],
-                    ['Japandi', 'japandi'],
-                    ['Moderno', 'modern'],
-                    ['Contemporáneo', 'contemporary'],
-                    ['Ecléctico', 'eclectic'],
-                    ['Wabi-sabi', 'wabi_sabi'],
-                    ['Zen', 'zen'],
-                    ['Costero', 'coastral'],
-                    ['Mediterráneo', 'mediterranean'],
-                    ['Shabby Chic', 'shabby_chic'],
-                    ['Bauhaus', 'bauhaus'],
-                    ['Futurista', 'futuristic'],
-                    ['Faraónico', 'pharaonic'],
-                    ['Tropical', 'tropical'],
-                    ['Tribal', 'tribal'],
-                    ['Rústico', 'rustic'],
-                    ['Moderno de mediados de siglo', 'midcentury_modern'],
-                    ['Maximalista', 'maximalist'],
-                    ['Vintage', 'vintage'],
-                    ['Medieval', 'medieval'],
-                    ['Barroco', 'barroque'],
-                    ['Halloween', 'halloween'],
-                    ['Cyberpunk', 'cyberpunk'],
-                    ['Navideño', 'chrismas']
-                ]
-        }
-    
-    if request.method == 'POST':
-               
-        imagen = request.FILES.get('imagen')
-        prompt = request.POST.get('textoEjemplo')
-        style = request.POST.get('select2')
-        negative_prompt = request.POST.get('textoEjemplo2')
-        seedd = request.POST.get('seed')
-        
-        full_prompt = f"""
-            Redesing the image in the {style} style, 
-            taking into account the following details: "{prompt}". 
-            As an expert interioir designer, ensure the design reflects your expertise
-            and creativity.
-        """
-
-        if imagen:
-            resultado = llamar_api_interiorRedecoration(imagen, full_prompt, negative_prompt, seedd)
-            imagenes_base64 = bytes_to_base64(resultado)
-
-            context = {
-                'imagenes_base64': imagenes_base64,
-                "negative_prompt": negative_prompt,
-                'detalles': prompt
-            }
-        
-            return render(request, 'GaudeSite/tools/interiorredecoration.html', context)
-        
-        else:
-            error_message = "No se ha subido ninguna imagen."
-            return HttpResponse(error_message)
-        
-    context = {
-        'name': 'Interior',
-        'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
-        'controls' : [ image, promptt, styles, negative, seed ],
-        'action' : '/interiorredecoration/'
-    }
-    return render(request, 'GaudeSite/tool.html', context) 
 
 @login_required 
 def upScale(request):
