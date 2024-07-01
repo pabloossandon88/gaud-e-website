@@ -323,10 +323,7 @@ def masterPlan(request):
              }
 
             context['imagenes_base64'] = bytes_to_base64( call_api_image(imagen, params ) )
-
-        
-            return render(request, 'GaudeSite/tool.html', context)
-            
+    
         else:
             error_message = "No se ha subido ninguna imagen."
             return HttpResponse(error_message)       
@@ -334,11 +331,141 @@ def masterPlan(request):
     
 
     return render(request, 'GaudeSite/tool.html', context)
+    
+def landScape(request):
+    types = {
+                'name' : 'Tipo de espacio',
+                'slug' : 'type-spot',
+                'type' : 'ratio',
+                'items': [
+                    ['Patio interior', 'backyard'],
+                    ['Entrada del edificio', 'building_entrance'],
+                    ['Patio', 'courtyard'],
+                    ['Piscina', 'swimming_pool'],
+                    ['Jardín exterior', 'outdoor_garden'],
+                    ['Paisaje de club', 'club_landscape'],
+                    ['Parque', 'park'],
+                    ['Paseo peatonal', 'pedestrian_promenade']
+                ]
+        }
+    styles = {
+                'name' : 'Estilo de espacio',
+                'slug' : 'style-spot',
+                'type' : 'ratio',
+                'items': [
+                    ['Moderno', 'modern'],
+                    ['Tropical', 'tropical'],
+                    ['Contemporáneo', 'contemporary'],
+                    ['Toscano', 'tuscan'],
+                    ['Jardín japonés', 'japanese_garden'],
+                    ['Jardín inglés', 'english_garden'],
+                    ['Jardín francés', 'french_garden'],
+                    ['Rústico', 'rustic'],
+                    ['Pradera', 'prairie'],
+                    ['Boscoso', 'woodland'],
+                    ['Español', 'spanish'],
+                    ['Costero', 'coastal'],
+                    ['Minimalista', 'minimalist'],
+                    ['Cálido y acogedor', 'warm_and_cosy']
+                ]
+        }    
 
+    context = {
+        'name': 'Paisajismo',
+        'description': 'Genera un proyecto de paisajismo, a partir solamente de un esquema o fotografía',
+        'controls' : [ image, promptt, types, styles, negative ],
+        'action' : '/landscape/'
+    }
 
+    if request.method == 'POST':
+        context['controls'] = set_controls_value(request, context['controls'])
 
+        imagen = request.FILES.get('imagen')
 
+        if imagen:
+            final_prompt = f"""
+                Create a "{context['controls'][2].get('value', 'Unspecified')}" _espacio Landscape in the "{context['controls'][2].get('value', 'Unspecified')}" style, 
+                taking into account the following details: "{context['controls'][1].get('value', 'Unspecified')}". 
+                As an expert architect, ensure the design reflects your expertise
+                and creativity.
+             """
 
+            params = {
+                'final_prompt' : final_prompt, 
+                #'aspect_ratio' : context['controls'][5].get('value', ''),
+                'negative' : context['controls'][3].get('value', ''), 
+                #'model' : context['controls'][4].get('value', '')
+             }
+
+            context['imagenes_base64'] = bytes_to_base64( call_api_image(imagen, params ) )
+        else:
+            error_message = "No se ha subido ninguna imagen."
+            return HttpResponse(error_message)
+
+    return render(request, 'GaudeSite/tool.html', context)
+
+def outPaint(request):
+
+    left = {
+        'name' : 'left',
+        'slug' : 'left',
+        'type' : 'range'
+        }
+
+    right = {
+        'name' : 'right',
+        'slug' : 'right',
+        'type' : 'range'
+        }
+
+    up = {
+        'name' : 'up',
+        'slug' : 'up',
+        'type' : 'range'
+        }
+
+    down = {
+        'name' : 'down',
+        'slug' : 'down',
+        'type' : 'range'
+        }
+  
+    context = {
+        'name': 'Ampliaciones',
+        'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
+        'controls' : [ image, left, right, up, down ],
+        'action' : '/outpaint/'
+    }
+
+    if request.method == 'POST':
+        context['controls'] = set_controls_value(request, context['controls'])
+
+        imagen = request.FILES.get('imagen')
+
+        if imagen:
+            final_prompt = f"""
+                Visualize an expansion for the provided image. The expansion should adjust the structure based on the following dimensions:
+                - Left: {context['controls'][1].get('value', 0)} units
+                - Right: {context['controls'][2].get('value', 0)} units
+                - Up: {context['controls'][3].get('value', 0)} units
+                - Down: {context['controls'][4].get('value', 0)} units
+                Ensure the expansion integrates seamlessly with the existing architectural style and enhances the overall design.
+             """
+
+            params = {
+                'final_prompt' : final_prompt, 
+                #'aspect_ratio' : context['controls'][5].get('value', ''),
+                'negative' : '', 
+                #'model' : context['controls'][4].get('value', '')
+             }
+
+            context['imagenes_base64'] = bytes_to_base64( call_api_image(imagen, params ) )
+        else:
+            error_message = "No se ha subido ninguna imagen."
+            return HttpResponse(error_message)
+  
+            
+    return render(request, 'GaudeSite/tool.html', context)
 
 
 
@@ -483,71 +610,6 @@ def replaceStructure(request):
     }
     return render(request, 'GaudeSite/tool.html', context)  
 
-
-
-@login_required
-def outPaint(request):
-
-    left = {
-        'name' : 'left',
-        'slug' : 'left',
-        'type' : 'range'
-        }
-
-    right = {
-        'name' : 'right',
-        'slug' : 'right',
-        'type' : 'range'
-        }
-
-    up = {
-        'name' : 'up',
-        'slug' : 'up',
-        'type' : 'range'
-        }
-
-    down = {
-        'name' : 'down',
-        'slug' : 'down',
-        'type' : 'range'
-        }
-  
-  
-    if request.method == 'POST':
-        
-        imagen = request.FILES.get('imagen')
-        left = request.POST.get('left')
-        right = request.POST.get('right')
-        up = request.POST.get('up')
-        down = request.POST.get('down')
-        prompt = request.POST.get('textoEjemplo')
-        seed = request.POST.get('seed')
-        
-        if imagen:       
-            resultado = llamar_api_outpaint(imagen, prompt, left, right, up, down, seed)
-
-            if isinstance(resultado, dict) and 'error' in resultado:
-                return redirect('/') 
-            
-            else:
-                imagenes_base64 = bytes_to_base64(resultado)
-                context = {
-                    'imagenes_base64': imagenes_base64,
-                    'prompt': prompt,
-                }
-        else:
-            error_message = "No se ha subido ninguna imagen."
-            return HttpResponse(error_message)            
-        return render(request, 'GaudeSite/outpaint.html', context)        
-    
-    context = {
-        'name': 'Ampliaciones',
-        'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
-        'controls' : [ image, left, right, up, down ],
-        'action' : '/outpaint/'
-    }        
-    return render(request, 'GaudeSite/tool.html', context)
-
 @login_required 
 def interiorRedecoration(request):
     styles = {
@@ -629,85 +691,6 @@ def interiorRedecoration(request):
         'action' : '/interiorredecoration/'
     }
     return render(request, 'GaudeSite/tool.html', context) 
-
-@login_required    
-def landScape(request):
-    types = {
-                'name' : 'Tipo de espacio',
-                'slug' : 'type-spot',
-                'type' : 'ratio',
-                'items': [
-                    ['Patio interior', 'backyard'],
-                    ['Entrada del edificio', 'building_entrance'],
-                    ['Patio', 'courtyard'],
-                    ['Piscina', 'swimming_pool'],
-                    ['Jardín exterior', 'outdoor_garden'],
-                    ['Paisaje de club', 'club_landscape'],
-                    ['Parque', 'park'],
-                    ['Paseo peatonal', 'pedestrian_promenade']
-                ]
-        }
-    styles = {
-                'name' : 'Estilo de espacio',
-                'slug' : 'style-spot',
-                'type' : 'ratio',
-                'items': [
-                    ['Moderno', 'modern'],
-                    ['Tropical', 'tropical'],
-                    ['Contemporáneo', 'contemporary'],
-                    ['Toscano', 'tuscan'],
-                    ['Jardín japonés', 'japanese_garden'],
-                    ['Jardín inglés', 'english_garden'],
-                    ['Jardín francés', 'french_garden'],
-                    ['Rústico', 'rustic'],
-                    ['Pradera', 'prairie'],
-                    ['Boscoso', 'woodland'],
-                    ['Español', 'spanish'],
-                    ['Costero', 'coastal'],
-                    ['Minimalista', 'minimalist'],
-                    ['Cálido y acogedor', 'warm_and_cosy']
-                ]
-        }    
-
-    if request.method == 'POST':
-        estilo_espacio = request.POST.get('select3')
-        imagen = request.FILES.get('imagen')
-        prompt = request.POST.get('textoEjemplo')
-        tipo_espacio = request.POST.get('select1')
-        negative_prompt = request.POST.get('textoEjemplo2')
-
-        full_prompt = f"""
-            Create a {tipo_espacio} Landscape in the {estilo_espacio} style, 
-            taking into account the following details: "{prompt}". 
-            As an expert architect, ensure the design reflects your expertise
-            and creativity.
-        """
-
-        if imagen:
-            resultado = llamar_api_masterplan(imagen, full_prompt, negative_prompt)
-            imagenes_base64 = bytes_to_base64(resultado)
-
-            context = {
-                'imagenes_base64': imagenes_base64,
-                'tipo_construccion': estilo_espacio,
-                "negative_prompt": negative_prompt,
-                "tipo_espacio": tipo_espacio,
-                'detalles': prompt
-            }
-        
-            return render(request, 'GaudeSite/landscape.html', context)
-        
-        else:
-            error_message = "No se ha subido ninguna imagen."
-            return HttpResponse(error_message)
-        
-    context = {
-        'name': 'Paisajismo',
-        'description': 'Genera un proyecto de paisajismo, a partir solamente de un esquema o fotografía',
-        'controls' : [ image, promptt, types, styles, negative ],
-        'action' : '/landscape/'
-    }
-    return render(request, 'GaudeSite/tool.html', context)
 
 @login_required 
 def upScale(request):
