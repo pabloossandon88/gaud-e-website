@@ -467,7 +467,6 @@ def outPaint(request):
             
     return render(request, 'GaudeSite/tool.html', context)
 
-@login_required 
 def interiorRedecoration(request):
     styles = {
                 'name' : 'Estilo',
@@ -510,47 +509,40 @@ def interiorRedecoration(request):
                 ]
         }
     
-    if request.method == 'POST':
-               
-        imagen = request.FILES.get('imagen')
-        prompt = request.POST.get('textoEjemplo')
-        style = request.POST.get('select2')
-        negative_prompt = request.POST.get('textoEjemplo2')
-        seedd = request.POST.get('seed')
-        
-        full_prompt = f"""
-            Redesing the image in the {style} style, 
-            taking into account the following details: "{prompt}". 
-            As an expert interioir designer, ensure the design reflects your expertise
-            and creativity.
-        """
-
-        if imagen:
-            resultado = llamar_api_interiorRedecoration(imagen, full_prompt, negative_prompt, seedd)
-            imagenes_base64 = bytes_to_base64(resultado)
-
-            context = {
-                'imagenes_base64': imagenes_base64,
-                "negative_prompt": negative_prompt,
-                'detalles': prompt
-            }
-        
-            return render(request, 'GaudeSite/tools/interiorredecoration.html', context)
-        
-        else:
-            error_message = "No se ha subido ninguna imagen."
-            return HttpResponse(error_message)
-        
     context = {
         'name': 'Interior',
         'description': 'Sube un boceto o modelo para rediseñar tu espacio interior con más de 20 estilos únicos.',
         'controls' : [ image, promptt, styles, negative, seed ],
         'action' : '/interiorredecoration/'
     }
+
+    if request.method == 'POST':
+        context['controls'] = set_controls_value(request, context['controls'])
+
+        imagen = request.FILES.get('imagen')
+
+        if imagen:
+            final_prompt = f"""
+                Redesing the image in the {context['controls'][2].get('value', 'Unspecified')} style, 
+                taking into account the following details: {context['controls'][1].get('value', 'Unspecified')} . 
+                As an expert interioir designer, ensure the design reflects your expertise
+                and creativity.
+             """
+
+            params = {
+                'final_prompt' : final_prompt, 
+                #'aspect_ratio' : context['controls'][5].get('value', ''),
+                'negative' : '', 
+                #'model' : context['controls'][4].get('value', '')
+             }
+
+            context['imagenes_base64'] = bytes_to_base64( call_api_image(imagen, params ) )
+        else:
+            error_message = "No se ha subido ninguna imagen."
+            return HttpResponse(error_message)
+  
+    
     return render(request, 'GaudeSite/tool.html', context) 
-
-
-
 
 
 
