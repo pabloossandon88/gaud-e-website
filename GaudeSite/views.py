@@ -544,43 +544,77 @@ def interiorRedecoration(request):
     
     return render(request, 'GaudeSite/tool.html', context) 
 
-
-
-
-
-@login_required
 def sketchImg(request):
-    if request.method == 'POST':
-
-        detalles = request.POST.get('textoEjemplo')      
-        imagen = request.FILES.get('imagen')
-
-        if imagen:
-            resultado = llamar_api_boceto(imagen, detalles)
-            imagenes_base64 = bytes_to_base64(resultado)
-            context = {
-                'name': 'Renderización de dibujo o imagen',
-                'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
-                'controls' : [ image ],
-                'action' : '/sketchimg/',
-                
-                'imagenes_base64': imagenes_base64,
-                       'detalles': detalles
-            }
-        
-            return render(request, 'GaudeSite/tool.html', context)
-        
-        else:
-            error_message = "No se ha subido ninguna imagen."
-            return HttpResponse(error_message)
-    
     context = {
         'name': 'Renderización de dibujo o imagen',
         'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
         'controls' : [ image ],
         'action' : '/sketchimg/'
-    }        
+    }  
+
+    if request.method == 'POST':
+        context['controls'] = set_controls_value(request, context['controls'])
+
+        imagen = request.FILES.get('imagen')
+
+        if imagen:
+            
+
+            params = {
+                'final_prompt' : '', 
+                #'aspect_ratio' : context['controls'][5].get('value', ''),
+                'negative' : '', 
+                #'model' : context['controls'][4].get('value', '')
+             }
+
+            context['imagenes_base64'] = bytes_to_base64( call_api_image(imagen, params ) )
+
     return render(request, 'GaudeSite/tool.html', context)
+
+@login_required
+def replaceStructure(request):
+    
+    replace = {
+        'name' : 'Menciona lo que quieres reemplazar en tu imagen',
+        'slug' : 'replace',
+        'type' : 'textarea'
+    }
+
+    context = {
+        'name': 'Replace Structure',
+        'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
+        'controls' : [ image, replace ],
+        'action' : '/replacestructure/'
+    }
+
+
+    if request.method == 'POST':
+        
+        replace = request.POST.get('prompt')
+        imagen = request.FILES.get('imagen')
+
+        if imagen:
+            resultado = llamar_api_replace_structure(imagen, replace)
+            imagenes_base64 = bytes_to_base64(resultado)
+
+            context = {
+                'imagenes_base64': imagenes_base64,
+                'prompt': replace,
+            }
+        
+            return render(request, 'GaudeSite/replacestructure.html', context)
+        
+        else:
+            error_message = "No se ha subido ninguna imagen."
+            return HttpResponse(error_message)        
+    
+    
+    return render(request, 'GaudeSite/tool.html', context)  
+
+
+
+
+
 
 @login_required
 def removeBackground(request):
@@ -606,7 +640,6 @@ def removeBackground(request):
         'action' : '/removebackground/'
     }        
     return render(request, 'GaudeSite/tool.html', context)
-
 
 @login_required
 def searchReplace(request):
@@ -652,43 +685,6 @@ def searchReplace(request):
         'action' : '/searchreplace/'
     }
     return render(request, 'GaudeSite/tool.html', context)  
-
-@login_required
-def replaceStructure(request):
-    replace = {
-            'name' : 'Menciona lo que quieres reemplazar en tu imagen',
-            'slug' : 'replace',
-            'type' : 'textarea'
-        }
-
-    if request.method == 'POST':
-        
-        replace = request.POST.get('prompt')
-        imagen = request.FILES.get('imagen')
-
-        if imagen:
-            resultado = llamar_api_replace_structure(imagen, replace)
-            imagenes_base64 = bytes_to_base64(resultado)
-
-            context = {
-                'imagenes_base64': imagenes_base64,
-                'prompt': replace,
-            }
-        
-            return render(request, 'GaudeSite/replacestructure.html', context)
-        
-        else:
-            error_message = "No se ha subido ninguna imagen."
-            return HttpResponse(error_message)        
-    
-    context = {
-        'name': 'Replace Structure',
-        'description': 'Sube tu boceto o dibujo y conviértelo en un diseño arquitectónico de alta calidad.',
-        'controls' : [ image, replace ],
-        'action' : '/replacestructure/'
-    }
-    return render(request, 'GaudeSite/tool.html', context)  
-
 
 @login_required 
 def upScale(request):
