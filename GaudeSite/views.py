@@ -737,6 +737,10 @@ def prices(request):
     return render(request, 'GaudeSite/prices.html')
 
 def create_payment(request):
+
+    pasareladepago = request.POST.get('xx')
+    
+    #PAY PAL 
     if request.method == "POST":
         payment = paypalrestsdk.Payment({
             "intent": "sale",
@@ -769,7 +773,7 @@ def create_payment(request):
             for link in payment.links:
                 if link.rel == "approval_url":
 
-                    amount = 1500
+                    amount = 20
                     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
                     user_profile.credits += amount
                     user_profile.save()
@@ -777,6 +781,32 @@ def create_payment(request):
                     return redirect(link.href)
         else:
             return render(request, 'GaudeSite/payments/payment_error.html', {'error': payment.error})
+
+    #MERCADO PAGO 
+    
+        sdk = mercadopago.SDK(settings.MERCADOPAGO_ACCESS_TOKEN)
+        
+        preference_data = {
+            "items": [
+                {
+                    "title": "Producto de ejemplo",
+                    "quantity": 1,
+                    "currency_id": "ARS",
+                    "unit_price": 100.0
+                }
+            ],
+            "back_urls": {
+                "success": "http://localhost:8000/success",
+                "failure": "http://localhost:8000/failure",
+                "pending": "http://localhost:8000/pending"
+            },
+            "auto_return": "approved",
+        }
+        
+        preference_response = sdk.preference().create(preference_data)
+        preference = preference_response["response"]
+        
+        #return redirect(preference['init_point'])
 
     return render(request, 'GaudeSite/payments/payment.html')
 
