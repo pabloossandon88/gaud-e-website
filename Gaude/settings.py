@@ -204,6 +204,9 @@ PAYPAL_MODE = 'sandbox'  # or 'live' for production
 
 ACCOUNT_LOGOUT_REDIRECT_URL ="/"
 
+#MERCADOPAGO
+MERCADOPAGO_ACCESS_TOKEN = env('MERCADOPAGO_ACCESS_TOKEN')
+
 
 #import logging
 
